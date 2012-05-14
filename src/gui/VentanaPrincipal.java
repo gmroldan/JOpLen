@@ -389,47 +389,53 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             String len1=boxLenguaje1.getSelectedItem().toString();
-            String len2=boxLenguaje1.getSelectedItem().toString();
-            String operacion=boxOperaciones.getSelectedItem().toString();
-            String potencia=textPotencia.getText();
-            if("Unión".equalsIgnoreCase(operacion))
-                textResultado.setText(len1+" ∪ "+len2+" = "+e.union(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
-            if("Intersección".equals(operacion))
-                textResultado.setText(len1+" ∩ "+len2+" ="+e.interseccion(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
-            if("Diferencia".equals(operacion))
-                textResultado.setText(len1+" - "+len2+" = "+e.diferencia(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
-            if("Complemento".equals(operacion))
-                textResultado.setText("∼"+len1+" = "+e.complemento(e.buscarLenguaje(len1)));
-            if("Producto".equals(operacion))
-                textResultado.setText(len1+" . "+len2+" = "+e.producto(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
-            if("Potenciación".equals(operacion)){
-                if(Integer.parseInt(potencia)>=0)
-                    textResultado.setText(len1+" a la "+potencia+" = "+e.potenciacion(e.buscarLenguaje(len1), Integer.parseInt(potencia)).getPalabras().toString());
-                else
-                    JOptionPane.showMessageDialog(this, "Esta opereción solo acepta potencias mayores o iguales a 0(cero)", null, JOptionPane.ERROR_MESSAGE);
+            String len2=boxLenguaje2.getSelectedItem().toString();            
+            String potencia=textPotencia.getText();            
+            switch(getOperacion()){
+                case 0:
+                    textResultado.setText(len1+" ∪ "+len2+" = "+e.union(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
+                    break;
+                case 1:
+                    textResultado.setText(len1+" - "+len2+" = "+e.diferencia(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
+                    break;
+                case 2:
+                    textResultado.setText(len1+" ∩ "+len2+" ="+e.interseccion(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
+                    break;
+                case 3:
+                    textResultado.setText("∼"+len1+" = "+e.complemento(e.buscarLenguaje(len1)));
+                    break;
+                case 4:
+                    textResultado.setText(len1+" . "+len2+" = "+e.producto(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
+                    break;
+                case 5:
+                    if(Integer.parseInt(potencia)>=0)
+                        textResultado.setText(len1+" a la "+potencia+" = "+e.potenciacion(e.buscarLenguaje(len1), Integer.parseInt(potencia)).getPalabras().toString());
+                    else
+                        JOptionPane.showMessageDialog(this, "Esta opereción solo acepta potencias mayores o iguales a 0(cero)", null, JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 6:
+                    if(Integer.parseInt(potencia)>=0)
+                        textResultado.setText(len1+" Estrella de Kleene en potencia "+potencia+" = "+e.estrella("kleene", e.buscarLenguaje(len1), Integer.parseInt(potencia)).getPalabras().toString());
+                    else
+                        JOptionPane.showMessageDialog(this, "Esta opereción solo acepta potencias mayores o iguales a 0(cero)", null, JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 7:
+                    if(Integer.parseInt(potencia)>=1)
+                        textResultado.setText(len1+" Estrella Positiva en potencia "+potencia+" = "+e.estrella("", e.buscarLenguaje(len1), Integer.parseInt(potencia)).getPalabras().toString());
+                    else
+                        JOptionPane.showMessageDialog(this, "Esta opereción solo acepta potencias mayores o iguales a 1(uno)", null, JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 8:
+                    textResultado.setText(len1+" inversa = "+e.inversa(e.buscarLenguaje(len1)).getPalabras().toString());
+                    break;
             }
-            if("Estrella de Kleene".equals(operacion)){
-                if(Integer.parseInt(potencia)>=0)
-                    textResultado.setText(len1+" Estrella de Kleene en potencia "+potencia+" = "+e.estrella("kleene", e.buscarLenguaje(len1), Integer.parseInt(potencia)).getPalabras().toString());
-                else
-                    JOptionPane.showMessageDialog(this, "Esta opereción solo acepta potencias mayores o iguales a 0(cero)", null, JOptionPane.ERROR_MESSAGE);
-            }
-            if("Estrella Positiva".equals(operacion)){
-                if(Integer.parseInt(potencia)>=1)
-                    textResultado.setText(len1+" Estrella Positiva en potencia "+potencia+" = "+e.estrella("", e.buscarLenguaje(len1), Integer.parseInt(potencia)).getPalabras().toString());
-                else
-                    JOptionPane.showMessageDialog(this, "Esta opereción solo acepta potencias mayores o iguales a 1(uno)", null, JOptionPane.ERROR_MESSAGE);
-            }
-            if("Inversa".equals(operacion))
-                textResultado.setText(len1+" inversa = "+e.inversa(e.buscarLenguaje(len1)).getPalabras().toString());
-                    
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this, "No se puedo realizar ninguna operación", "Error", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_botonEvaluarActionPerformed
 
     private void boxOperacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxOperacionesActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         String operacion=boxOperaciones.getSelectedItem().toString();
         if( "Complemento".equals(operacion) || "Potenciación".equals(operacion) || "Estrella de Kleene".equals(operacion) || "Inversa".equals(operacion) || "Estrella Positiva".equals(operacion)){
             boxLenguaje2.setEnabled(false);
@@ -462,6 +468,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if(comboBox.getSelectedItem()==l.getNombre())
                 textArea.setText(l.getPalabras().toString());
         }
+    }
+    
+    public int getOperacion(){        
+        return boxOperaciones.getSelectedIndex();
     }
     
     public static void main(String args[]) {
