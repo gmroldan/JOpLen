@@ -7,6 +7,7 @@ package gui;
 import gui.acercaDe.AcercaDeDialog;
 import gui.alfabeto.nuevoAlfabetoDialog;
 import gui.lenguaje.nuevoLenguajeDialog;
+import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -49,7 +50,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        opcionGuardar = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         opcionSalir = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -247,11 +248,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem3.setText("Abrir");
         jMenu1.add(jMenuItem3);
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/save.png"))); // NOI18N
-        jMenuItem4.setText("Guardar");
-        jMenuItem4.setToolTipText("Guarda el alfabeto y los lenguajes en un archivo de texto");
-        jMenu1.add(jMenuItem4);
+        opcionGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        opcionGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/save.png"))); // NOI18N
+        opcionGuardar.setText("Guardar");
+        opcionGuardar.setToolTipText("Guarda el alfabeto y los lenguajes en un archivo de texto");
+        opcionGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionGuardarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(opcionGuardar);
         jMenu1.add(jSeparator2);
 
         opcionSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/close.png"))); // NOI18N
@@ -452,6 +458,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }            
     }//GEN-LAST:event_boxOperacionesActionPerformed
 
+    private void opcionGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionGuardarActionPerformed
+        // TODO add your handling code here:
+        try{
+            e.guardar();
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_opcionGuardarActionPerformed
+
     public void actualizarComboBoxsLenguajes(JComboBox comboBox){
         String[] items = new String[Entorno.getLenguajes().size()];
         int i=0;
@@ -519,7 +534,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -534,6 +548,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel labelAlfabeto;
     private javax.swing.JMenuItem opcionAcercaDe;
+    private javax.swing.JMenuItem opcionGuardar;
     private javax.swing.JMenuItem opcionNuevoAlfabeto;
     private javax.swing.JMenuItem opcionNuevoLenguaje;
     private javax.swing.JMenuItem opcionSalir;

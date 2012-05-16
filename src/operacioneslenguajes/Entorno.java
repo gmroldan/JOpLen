@@ -4,6 +4,7 @@
  */
 package operacioneslenguajes;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class Entorno {
@@ -42,10 +43,8 @@ public class Entorno {
     }
     
     public Lenguaje union(Lenguaje len1,Lenguaje len2){
-        Lenguaje resultado=new Lenguaje();        
-        for(String palabra:len1.getPalabras()){
-            resultado.getPalabras().add(palabra);
-        }
+        Lenguaje resultado=new Lenguaje();
+        resultado.setPalabras(copiar(len1,resultado).getPalabras());        
         for(String palabra:len2.getPalabras()){
             if(!resultado.pertenece(palabra))
                 resultado.getPalabras().add(palabra);
@@ -102,14 +101,11 @@ public class Entorno {
         Lenguaje resultado=new Lenguaje();
         if(potencia==0)
             resultado.getPalabras().add("λ");
-        if(potencia==1){
-            for(String palabra:len.getPalabras())
-                resultado.getPalabras().add(palabra);
-        }
+        if(potencia==1)
+            resultado.setPalabras(copiar(len,resultado).getPalabras());
         if(potencia>1){
             Lenguaje aux=new Lenguaje();
-            for(String p:len.getPalabras())
-                aux.getPalabras().add(p);
+            aux.setPalabras(copiar(len,aux).getPalabras());            
             String palabra=null;
             for(int i=1;i<potencia;i++){                
                 for(String p1:aux.getPalabras()){                    
@@ -127,8 +123,7 @@ public class Entorno {
     
     public Lenguaje actualizarAux(Lenguaje resultado){
         Lenguaje aux=new Lenguaje();
-        for(String palabra:resultado.getPalabras())
-            aux.getPalabras().add(palabra);
+        aux.setPalabras(copiar(resultado,aux).getPalabras());        
         return aux;
     }    
     
@@ -142,9 +137,7 @@ public class Entorno {
                 aux.getPalabras().add(palabra);
             }
             resultado.getPalabras().clear();
-            for(String palabra:aux.getPalabras()){                
-                resultado.getPalabras().add(palabra);                
-            }                            
+            resultado.setPalabras(copiar(aux,resultado).getPalabras());            
             aux.getPalabras().clear();
         }
         return resultado;
@@ -161,5 +154,21 @@ public class Entorno {
             palabra="";
         }
         return resultado;
+    }
+    
+    public Lenguaje copiar(Lenguaje len1, Lenguaje len2){
+        for(String palabra:len1.getPalabras())
+            len2.getPalabras().add(palabra);
+        return len2;
+    }
+    
+    public void guardar() throws IOException{
+        FileWriter fw = new FileWriter(new File("archivo.txt"));
+        fw.write(getAlfabeto().getSimbolos().toString()+"\n");
+        for (Lenguaje len:getLenguajes()) {
+            //for(String palabra:len.getPalabras())
+                fw.write(len.getPalabras().toString()+"\n");
+        }
+        fw.close();
     }
 }
