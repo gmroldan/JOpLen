@@ -49,7 +49,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         textResultado = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        opcionAbrir = new javax.swing.JMenuItem();
         opcionGuardar = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         opcionSalir = new javax.swing.JMenuItem();
@@ -243,10 +243,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/open.png"))); // NOI18N
-        jMenuItem3.setText("Abrir");
-        jMenu1.add(jMenuItem3);
+        opcionAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        opcionAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/open.png"))); // NOI18N
+        opcionAbrir.setText("Abrir");
+        opcionAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionAbrirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(opcionAbrir);
 
         opcionGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         opcionGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/save.png"))); // NOI18N
@@ -462,10 +467,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             e.guardar();
+            JOptionPane.showMessageDialog(this, "El proyecto se guardó con éxito", null, JOptionPane.INFORMATION_MESSAGE);
         }catch(IOException e){
             JOptionPane.showMessageDialog(this, "No se pudo guardar el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_opcionGuardarActionPerformed
+
+    private void opcionAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAbrirActionPerformed
+        // TODO add your handling code here:
+        try{
+            e.abrir();
+            labelAlfabeto.setText(Entorno.getAlfabeto().getSimbolos().toString());
+            actualizarComboBoxsLenguajes(boxLenguaje1);
+            actualizarComboBoxsLenguajes(boxLenguaje2);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "No se pudo abrir el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
+        }        
+    }//GEN-LAST:event_opcionAbrirActionPerformed
 
     public void actualizarComboBoxsLenguajes(JComboBox comboBox){
         String[] items = new String[Entorno.getLenguajes().size()];
@@ -533,7 +551,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -547,6 +564,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel labelAlfabeto;
+    private javax.swing.JMenuItem opcionAbrir;
     private javax.swing.JMenuItem opcionAcercaDe;
     private javax.swing.JMenuItem opcionGuardar;
     private javax.swing.JMenuItem opcionNuevoAlfabeto;

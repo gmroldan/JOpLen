@@ -162,12 +162,44 @@ public class Entorno {
         return len2;
     }
     
+    public void abrir() throws Exception{
+        BufferedReader br=new BufferedReader(new FileReader("archivo.txt"));
+        String linea;        
+        boolean j=true;
+        while((linea=br.readLine())!=null){
+            if(j){    
+                Alfabeto aux=new Alfabeto();
+                for(int i=0;i<linea.length();i++)                    
+                    aux.getSimbolos().add(String.valueOf(linea.charAt(i)));
+                setAlfabeto(aux);
+                j=false;
+            }
+            else{
+                String aux="";
+                Lenguaje len=new Lenguaje();
+                for(int i=0;i<linea.length();i++){
+                    if(!",".equals(String.valueOf(linea.charAt(i))))
+                        aux=aux+""+String.valueOf(linea.charAt(i));                    
+                    else{
+                        len.getPalabras().add(aux);                        
+                        aux="";
+                    }
+                }        
+                len.setNombre("Lenguaje "+(getLenguajes().size()+1));
+                getLenguajes().add(len);
+            }                
+        }
+        br.close();
+    }
+    
     public void guardar() throws IOException{
         FileWriter fw = new FileWriter(new File("archivo.txt"));
-        fw.write(getAlfabeto().getSimbolos().toString()+"\n");
-        for (Lenguaje len:getLenguajes()) {
-            //for(String palabra:len.getPalabras())
-                fw.write(len.getPalabras().toString()+"\n");
+        for(String simbolo:getAlfabeto().getSimbolos())
+            fw.write(simbolo);        
+        for (Lenguaje len:getLenguajes()){
+            fw.write("\n");
+            for(String palabra:len.getPalabras())
+                fw.write(palabra+",");            
         }
         fw.close();
     }
