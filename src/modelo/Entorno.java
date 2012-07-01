@@ -2,20 +2,20 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package operacioneslenguajes;
+package modelo;
 
 import java.io.*;
 import java.util.ArrayList;
 
 public class Entorno {
-    private static Alfabeto alfabeto;
+    private static Alfabeto alfabeto=new Alfabeto();
     private static ArrayList<Lenguaje> lenguajes=new ArrayList<Lenguaje>();
     
     public void agregarAlfabeto(Alfabeto a){
         setAlfabeto(a);
     }
     
-    public void agregarLenguaje(Lenguaje len){
+    public static void agregarLenguaje(Lenguaje len){
         getLenguajes().add(len);
     }
     

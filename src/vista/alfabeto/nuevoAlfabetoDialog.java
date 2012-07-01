@@ -2,20 +2,19 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package gui.alfabeto;
+package vista.alfabeto;
 
+import controlador.nuevoAlfabetoDialog.ControllerNAD;
 import javax.swing.JOptionPane;
-import operacioneslenguajes.Alfabeto;
 
 public class nuevoAlfabetoDialog extends javax.swing.JDialog {
-    private Alfabeto alfabeto;
-    static boolean estado=false;
+    private ControllerNAD controlador;    
     
     public nuevoAlfabetoDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        controlador=new ControllerNAD();
         initComponents();
-        this.setLocationRelativeTo(parent);
-        this.setVisible(true);
+        this.setLocationRelativeTo(parent);        
     }
 
     @SuppressWarnings("unchecked")
@@ -85,18 +84,13 @@ public class nuevoAlfabetoDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
-        alfabeto =new Alfabeto();
-        String[] texto;
-        texto=textAlfabeto.getText().split(",");
+        // TODO add your handling code here:        
         try {
-            alfabeto.ingresarSimbolos(texto);
-            estado=true;
+            controlador.nuevoAlfabeto(textAlfabeto.getText().split(","));            
+            this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "No se pudo ingresar el alfabeto", null, JOptionPane.ERROR_MESSAGE);
-        }
-        if(isEstado())
-            this.dispose();
+        }            
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -105,12 +99,4 @@ public class nuevoAlfabetoDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField textAlfabeto;
     // End of variables declaration//GEN-END:variables
-
-    public Alfabeto getAlfabeto() {
-        return alfabeto;
-    }
-
-    public static boolean isEstado() {
-        return estado;
-    }
 }

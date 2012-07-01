@@ -2,25 +2,18 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package gui.lenguaje;
+package vista.lenguaje;
 
+import controlador.nuevoLenguajeDialog.ControllerNLD;
 import javax.swing.JOptionPane;
-import operacioneslenguajes.Entorno;
-import operacioneslenguajes.Lenguaje;
 
 public class nuevoLenguajeDialog extends javax.swing.JDialog {
-
-    /**
-     * @return the estado
-     */
-    public static boolean isEstado() {
-        return estado;
-    }
-    private Lenguaje lenguaje;
-    private static boolean  estado=false;
+    private ControllerNLD controlador;
+    private boolean estado=false;
     
     public nuevoLenguajeDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        controlador=new ControllerNLD();
         initComponents();
         this.setLocationRelativeTo(parent);
         this.setVisible(true);
@@ -94,17 +87,13 @@ public class nuevoLenguajeDialog extends javax.swing.JDialog {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // TODO add your handling code here:
-        String[] texto;
-        texto=textPalabras.getText().split(",");
-        lenguaje=new Lenguaje(Entorno.getLenguajes().size()+1);
         try {
-            lenguaje.ingresarPalabras(texto);
+            controlador.nuevoLenguaje(textPalabras.getText().split(","));
             estado=true;
+            this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "No se pudo ingresar el lenguaje", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-        if(isEstado())
-            this.dispose();
+        }            
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -114,7 +103,7 @@ public class nuevoLenguajeDialog extends javax.swing.JDialog {
     private javax.swing.JTextField textPalabras;
     // End of variables declaration//GEN-END:variables
 
-    public Lenguaje getLenguaje() {
-        return lenguaje;
+    public boolean isEstado() {
+        return estado;
     }
 }

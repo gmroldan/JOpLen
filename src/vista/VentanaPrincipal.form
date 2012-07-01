@@ -15,7 +15,7 @@
                   <KeyStroke key="Ctrl+O"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gui/icons/open.png"/>
+                  <Image iconType="3" name="/vista/icons/open.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
@@ -29,7 +29,7 @@
                   <KeyStroke key="Ctrl+S"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gui/icons/save.png"/>
+                  <Image iconType="3" name="/vista/icons/save.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
                 <Property name="toolTipText" type="java.lang.String" value="Guarda el alfabeto y los lenguajes en un archivo de texto"/>
@@ -43,7 +43,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="opcionSalir">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gui/icons/close.png"/>
+                  <Image iconType="3" name="/vista/icons/close.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
@@ -64,7 +64,7 @@
                   <KeyStroke key="Ctrl+A"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gui/icons/math.png"/>
+                  <Image iconType="3" name="/vista/icons/math.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo Alfabeto"/>
               </Properties>
@@ -85,7 +85,7 @@
                   <KeyStroke key="Ctrl+L"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gui/icons/new.png"/>
+                  <Image iconType="3" name="/vista/icons/new.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo Lenguaje"/>
               </Properties>
@@ -103,7 +103,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="opcionAcercaDe">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gui/icons/about.png"/>
+                  <Image iconType="3" name="/vista/icons/about.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Acerca de"/>
               </Properties>
@@ -425,7 +425,7 @@
             <Component class="javax.swing.JButton" name="botonEvaluar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gui/icons/operation.png"/>
+                  <Image iconType="3" name="/vista/icons/operation.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Evaluar"/>
               </Properties>

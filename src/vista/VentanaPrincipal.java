@@ -2,24 +2,25 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package gui;
+package vista;
 
-import gui.acercaDe.AcercaDeDialog;
-import gui.alfabeto.nuevoAlfabetoDialog;
-import gui.lenguaje.nuevoLenguajeDialog;
+import controlador.ControllerVP;
 import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-import operacioneslenguajes.Alfabeto;
-import operacioneslenguajes.Entorno;
-import operacioneslenguajes.Lenguaje;
+import modelo.Entorno;
+import modelo.Lenguaje;
+import vista.acercaDe.AcercaDeDialog;
+import vista.alfabeto.nuevoAlfabetoDialog;
+import vista.lenguaje.nuevoLenguajeDialog;
 
-public class VentanaPrincipal extends javax.swing.JFrame {    
-    Entorno e=new Entorno();
+public class VentanaPrincipal extends javax.swing.JFrame {        
+    private ControllerVP controlador;
     
     public VentanaPrincipal() {
+        controlador=new ControllerVP();
         initComponents();
         this.setLocationRelativeTo(null);        
     }
@@ -163,7 +164,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        botonEvaluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/operation.png"))); // NOI18N
+        botonEvaluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/operation.png"))); // NOI18N
         botonEvaluar.setText("Evaluar");
         botonEvaluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,7 +245,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Archivo");
 
         opcionAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        opcionAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/open.png"))); // NOI18N
+        opcionAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/open.png"))); // NOI18N
         opcionAbrir.setText("Abrir");
         opcionAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,7 +255,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu1.add(opcionAbrir);
 
         opcionGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        opcionGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/save.png"))); // NOI18N
+        opcionGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/save.png"))); // NOI18N
         opcionGuardar.setText("Guardar");
         opcionGuardar.setToolTipText("Guarda el alfabeto y los lenguajes en un archivo de texto");
         opcionGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -265,7 +266,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu1.add(opcionGuardar);
         jMenu1.add(jSeparator2);
 
-        opcionSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/close.png"))); // NOI18N
+        opcionSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/close.png"))); // NOI18N
         opcionSalir.setText("Salir");
         opcionSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,7 +280,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu3.setText("Alfabeto");
 
         opcionNuevoAlfabeto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        opcionNuevoAlfabeto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/math.png"))); // NOI18N
+        opcionNuevoAlfabeto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/math.png"))); // NOI18N
         opcionNuevoAlfabeto.setText("Nuevo Alfabeto");
         opcionNuevoAlfabeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,7 +294,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu4.setText("Lenguaje");
 
         opcionNuevoLenguaje.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        opcionNuevoLenguaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/new.png"))); // NOI18N
+        opcionNuevoLenguaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/new.png"))); // NOI18N
         opcionNuevoLenguaje.setText("Nuevo Lenguaje");
         opcionNuevoLenguaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,7 +307,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Ayuda");
 
-        opcionAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/about.png"))); // NOI18N
+        opcionAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/about.png"))); // NOI18N
         opcionAcercaDe.setText("Acerca de");
         opcionAcercaDe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -364,20 +365,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void opcionNuevoAlfabetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionNuevoAlfabetoActionPerformed
         // TODO add your handling code here:
-        Alfabeto a=new nuevoAlfabetoDialog(this, true).getAlfabeto();
-        if(nuevoAlfabetoDialog.isEstado()){
-            e.agregarAlfabeto(a);
-            labelAlfabeto.setText(Entorno.getAlfabeto().getSimbolos().toString());
-        }        
+        new nuevoAlfabetoDialog(this, true).setVisible(true);
+        labelAlfabeto.setText(Entorno.getAlfabeto().getSimbolos().toString());                
     }//GEN-LAST:event_opcionNuevoAlfabetoActionPerformed
 
     private void opcionNuevoLenguajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionNuevoLenguajeActionPerformed
         // TODO add your handling code here:
-        Lenguaje lenguaje;
         if(Entorno.getAlfabeto()!=null){
-           lenguaje=new nuevoLenguajeDialog(this, true).getLenguaje();
-           if(nuevoLenguajeDialog.isEstado()){
-               e.agregarLenguaje(lenguaje);
+           boolean estado=new nuevoLenguajeDialog(this, true).isEstado();
+           if(estado){               
                actualizarComboBoxsLenguajes(boxLenguaje1);
                actualizarComboBoxsLenguajes(boxLenguaje2);
            }           
@@ -401,47 +397,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         try{
             String len1=boxLenguaje1.getSelectedItem().toString();
             String len2=boxLenguaje2.getSelectedItem().toString();            
-            String potencia=textPotencia.getText();            
-            switch(getOperacion()){
-                case 0:
-                    textResultado.setText(len1+" ∪ "+len2+" = "+e.union(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
-                    break;
-                case 1:
-                    textResultado.setText(len1+" - "+len2+" = "+e.diferencia(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
-                    break;
-                case 2:
-                    textResultado.setText(len1+" ∩ "+len2+" ="+e.interseccion(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
-                    break;
-                case 3:
-                    textResultado.setText("∼"+len1+" = "+e.complemento(e.buscarLenguaje(len1)));
-                    break;
-                case 4:
-                    textResultado.setText(len1+" . "+len2+" = "+e.producto(e.buscarLenguaje(len1), e.buscarLenguaje(len2)).getPalabras().toString());
-                    break;
-                case 5:
-                    if(Integer.parseInt(potencia)>=0)
-                        textResultado.setText(len1+" a la "+potencia+" = "+e.potenciacion(e.buscarLenguaje(len1), Integer.parseInt(potencia)).getPalabras().toString());
-                    else
-                        JOptionPane.showMessageDialog(this, "Esta opereción solo acepta potencias mayores o iguales a 0(cero)", null, JOptionPane.ERROR_MESSAGE);
-                    break;
-                case 6:
-                    if(Integer.parseInt(potencia)>=0)
-                        textResultado.setText(len1+" Estrella de Kleene en potencia "+potencia+" = "+e.estrella("kleene", e.buscarLenguaje(len1), Integer.parseInt(potencia)).getPalabras().toString());
-                    else
-                        JOptionPane.showMessageDialog(this, "Esta opereción solo acepta potencias mayores o iguales a 0(cero)", null, JOptionPane.ERROR_MESSAGE);
-                    break;
-                case 7:
-                    if(Integer.parseInt(potencia)>=1)
-                        textResultado.setText(len1+" Estrella Positiva en potencia "+potencia+" = "+e.estrella("", e.buscarLenguaje(len1), Integer.parseInt(potencia)).getPalabras().toString());
-                    else
-                        JOptionPane.showMessageDialog(this, "Esta opereción solo acepta potencias mayores o iguales a 1(uno)", null, JOptionPane.ERROR_MESSAGE);
-                    break;
-                case 8:
-                    textResultado.setText(len1+" inversa = "+e.inversa(e.buscarLenguaje(len1)).getPalabras().toString());
-                    break;
-            }
+            String potencia=textPotencia.getText();
+            textResultado.setText(controlador.realizarOperación(len1, len2, potencia, getOperacion()));
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "No se puedo realizar ninguna operación", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se puedo realizar ninguna operación", "Error", JOptionPane.ERROR_MESSAGE);            
         }        
     }//GEN-LAST:event_botonEvaluarActionPerformed
 
@@ -466,7 +425,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void opcionGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionGuardarActionPerformed
         // TODO add your handling code here:
         try{
-            e.guardar();
+            controlador.guardarProyecto();
             JOptionPane.showMessageDialog(this, "El proyecto se guardó con éxito", null, JOptionPane.INFORMATION_MESSAGE);
         }catch(IOException e){
             JOptionPane.showMessageDialog(this, "No se pudo guardar el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
@@ -476,7 +435,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void opcionAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAbrirActionPerformed
         // TODO add your handling code here:
         try{
-            e.abrir();
+            controlador.abrirProyecto();
             labelAlfabeto.setText(Entorno.getAlfabeto().getSimbolos().toString());
             actualizarComboBoxsLenguajes(boxLenguaje1);
             actualizarComboBoxsLenguajes(boxLenguaje2);
@@ -485,7 +444,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_opcionAbrirActionPerformed
 
-    public void actualizarComboBoxsLenguajes(JComboBox comboBox){
+    private void actualizarComboBoxsLenguajes(JComboBox comboBox){
         String[] items = new String[Entorno.getLenguajes().size()];
         int i=0;
         for(Lenguaje l:Entorno.getLenguajes()){
@@ -496,19 +455,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         comboBox.setModel(modelo);        
     }
     
-    public void mostrarLenguaje(JComboBox comboBox,JTextArea textArea){        
+    private void mostrarLenguaje(JComboBox comboBox,JTextArea textArea){        
         for(Lenguaje l:Entorno.getLenguajes()){
             if(comboBox.getSelectedItem()==l.getNombre())
                 textArea.setText(l.getPalabras().toString());
         }
     }
     
-    public int getOperacion(){        
+    private int getOperacion(){        
         return boxOperaciones.getSelectedIndex();
     }
     
     public static void main(String args[]) {
-
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /*
          * If Nimbus (introduced in Java SE 6) is not available, stay with the
@@ -532,9 +490,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new VentanaPrincipal().setVisible(true);
             }

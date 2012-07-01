@@ -2,7 +2,7 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package operacioneslenguajes;
+package modelo;
 
 import java.util.ArrayList;
 
