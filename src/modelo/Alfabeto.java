@@ -13,8 +13,8 @@ public class Alfabeto {
         for(String t:texto){
             if(!perteneceAlfabetoMayusculas(t.charAt(0))){
                 if(t.length()==1){
-                    if(!pertenece(t))
-                        simbolos.add(t);
+                    if(!simbolos.contains(t))
+                        agregarSimbolo(t);
                 }
                 else
                     throw new Exception();                    
@@ -26,35 +26,17 @@ public class Alfabeto {
     
     public boolean perteneceAlfabetoMayusculas(char simbolo){
         return (simbolo<'A' || simbolo>'Z')? false:true;
-    }
-    
-    public boolean pertenece(String simbolo){
-        boolean resultado=false;
-        for(int i=0;i<simbolos.size();i++){
-            if(simbolos.get(i).equals(simbolo)){
-                resultado=true;
-                break;
-            }
-        }        
-        return resultado;
-    }    
+    }  
     
     public boolean pertenece(char simbolo){
-        boolean resultado=false;
-        for(int i=0;i<simbolos.size();i++){
-            if(simbolos.get(i).charAt(0)==simbolo){
-                resultado=true;
-                break;
-            }
-        }        
-        return resultado;
+        return simbolos.contains(String.valueOf(simbolo));
+    }    
+    
+    public void agregarSimbolo(String s){
+        simbolos.add(s);
     }
 
     public ArrayList<String> getSimbolos() {
         return simbolos;
-    }
-
-    public void setSimbolos(ArrayList<String> simbolos) {
-        this.simbolos = simbolos;
     }
 }

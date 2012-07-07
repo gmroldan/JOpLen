@@ -11,29 +11,9 @@ public class Entorno {
     private static Alfabeto alfabeto=new Alfabeto();
     private static ArrayList<Lenguaje> lenguajes=new ArrayList<Lenguaje>();
     
-    public void agregarAlfabeto(Alfabeto a){
-        setAlfabeto(a);
-    }
-    
-    public static void agregarLenguaje(Lenguaje len){
-        getLenguajes().add(len);
-    }
-    
-    public static Alfabeto getAlfabeto() {
-        return alfabeto;
-    }
-
-    public static void setAlfabeto(Alfabeto aAlfabeto) {
-        alfabeto = aAlfabeto;
-    }
-
-    public static ArrayList<Lenguaje> getLenguajes() {
-        return lenguajes;
-    }
-    
     public Lenguaje buscarLenguaje(String cadena){
         Lenguaje lenguaje = null;
-        for(Lenguaje l:getLenguajes()){
+        for(Lenguaje l:lenguajes){
             if(l.getNombre().equals(cadena)){
                 lenguaje=l;
                 break;
@@ -44,13 +24,13 @@ public class Entorno {
     
     public Lenguaje union(Lenguaje len1,Lenguaje len2){
         Lenguaje resultado=new Lenguaje();
-        resultado.setPalabras(copiar(len1,resultado).getPalabras());        
+        resultado.setPalabras(copiar(len1,resultado));        
         for(String palabra:len2.getPalabras()){
             if(!resultado.pertenece(palabra))
-                resultado.getPalabras().add(palabra);
+                resultado.agregarPalabra(palabra);
         }
         if(resultado.getPalabras().isEmpty())
-            resultado.getPalabras().add("Φ");
+            resultado.agregarPalabra("Φ");
         return resultado;
     }
     
@@ -59,10 +39,10 @@ public class Entorno {
         for(String palabra:len1.getPalabras()){
             if(len2.pertenece(palabra))
                 if(!resultado.pertenece(palabra))
-                    resultado.getPalabras().add(palabra);
+                    resultado.agregarPalabra(palabra);
         }
         if(resultado.getPalabras().isEmpty())
-            resultado.getPalabras().add("Φ");        
+            resultado.agregarPalabra("Φ");     
         return resultado;
     }
     
@@ -71,10 +51,10 @@ public class Entorno {
         for(String palabra:len1.getPalabras()){
             if(!len2.pertenece(palabra))
                 if(!resultado.pertenece(palabra))
-                    resultado.getPalabras().add(palabra);
+                    resultado.agregarPalabra(palabra);
         }
         if(resultado.getPalabras().isEmpty())
-            resultado.getPalabras().add("Φ");        
+            resultado.agregarPalabra("Φ");  
         return resultado;
     }
 
@@ -89,9 +69,9 @@ public class Entorno {
        String palabra=null;
        for(String p1:len1.getPalabras()){
            for(String p2:len2.getPalabras()){
-               palabra=p1+""+p2;
+               palabra=p1.concat(p2);
                if(!resultado.pertenece(palabra))
-                   resultado.getPalabras().add(palabra);
+                   resultado.agregarPalabra(palabra);
            }
        }
        return resultado;
@@ -100,19 +80,19 @@ public class Entorno {
     public Lenguaje potenciacion(Lenguaje len,int potencia){
         Lenguaje resultado=new Lenguaje();
         if(potencia==0)
-            resultado.getPalabras().add("λ");
+            resultado.agregarPalabra("λ");            
         if(potencia==1)
-            resultado.setPalabras(copiar(len,resultado).getPalabras());
+            resultado.setPalabras(copiar(len,resultado));
         if(potencia>1){
             Lenguaje aux=new Lenguaje();
-            aux.setPalabras(copiar(len,aux).getPalabras());            
+            aux.setPalabras(copiar(len,aux));            
             String palabra=null;
             for(int i=1;i<potencia;i++){                
                 for(String p1:aux.getPalabras()){                    
                     for(String p2:len.getPalabras()){
-                        palabra = p1+""+p2;                                 
+                        palabra = p1.concat(p2);                                 
                         if(!resultado.pertenece(palabra))
-                            resultado.getPalabras().add(palabra);
+                            resultado.agregarPalabra(palabra);
                     }                        
                 }
                 aux.setPalabras(actualizarAux(resultado).getPalabras());
@@ -121,9 +101,9 @@ public class Entorno {
         return resultado;
     }
     
-    public Lenguaje actualizarAux(Lenguaje resultado){
+    private Lenguaje actualizarAux(Lenguaje resultado){
         Lenguaje aux=new Lenguaje();
-        aux.setPalabras(copiar(resultado,aux).getPalabras());        
+        aux.setPalabras(copiar(resultado,aux));        
         return aux;
     }    
     
@@ -131,13 +111,13 @@ public class Entorno {
         Lenguaje resultado=new Lenguaje();        
         Lenguaje aux=new Lenguaje();  
         if("kleene".equals(tipo))
-            resultado.getPalabras().add("λ");
+            resultado.agregarPalabra("λ");            
         for(int i=1;i<=potencia;i++){
             for(String palabra:union(resultado, potenciacion(len, i)).getPalabras()){
-                aux.getPalabras().add(palabra);
+                aux.agregarPalabra(palabra);                
             }
             resultado.getPalabras().clear();
-            resultado.setPalabras(copiar(aux,resultado).getPalabras());            
+            resultado.setPalabras(copiar(aux,resultado));            
             aux.getPalabras().clear();
         }
         return resultado;
@@ -148,18 +128,17 @@ public class Entorno {
         String palabra="";
         for(String p:len.getPalabras()){                        
             for(int i=p.length()-1;i>=0;i--){
-                palabra=palabra+""+String.valueOf(p.charAt(i));                
+                palabra=palabra.concat(String.valueOf(p.charAt(i)));                            
             }
-            resultado.getPalabras().add(palabra);
+            resultado.agregarPalabra(palabra);
             palabra="";
         }
         return resultado;
     }
     
-    public Lenguaje copiar(Lenguaje len1, Lenguaje len2){
-        for(String palabra:len1.getPalabras())
-            len2.getPalabras().add(palabra);
-        return len2;
+    private ArrayList<String> copiar(Lenguaje len1, Lenguaje len2){
+        len2.setPalabras((ArrayList<String>)len1.getPalabras().clone());        
+        return len2.getPalabras();
     }
     
     public void abrir() throws Exception{
@@ -169,9 +148,9 @@ public class Entorno {
         while((linea=br.readLine())!=null){
             if(j){    
                 Alfabeto aux=new Alfabeto();
-                for(int i=0;i<linea.length();i++)                    
-                    aux.getSimbolos().add(String.valueOf(linea.charAt(i)));
-                setAlfabeto(aux);
+                for(int i=0;i<linea.length();i++)  
+                    aux.agregarSimbolo(String.valueOf(linea.charAt(i)));                    
+                alfabeto=aux;
                 j=false;
             }
             else{
@@ -181,12 +160,12 @@ public class Entorno {
                     if(!",".equals(String.valueOf(linea.charAt(i))))
                         aux=aux+""+String.valueOf(linea.charAt(i));                    
                     else{
-                        len.getPalabras().add(aux);                        
+                        len.agregarPalabra(aux);                        
                         aux="";
                     }
                 }        
-                len.setNombre("Lenguaje "+(getLenguajes().size()+1));
-                getLenguajes().add(len);
+                len.setNombre("Lenguaje "+(lenguajes.size()+1));
+                agregarLenguaje(len);                
             }                
         }
         br.close();
@@ -196,11 +175,27 @@ public class Entorno {
         FileWriter fw = new FileWriter(new File("archivo.txt"));
         for(String simbolo:getAlfabeto().getSimbolos())
             fw.write(simbolo);        
-        for (Lenguaje len:getLenguajes()){
+        for (Lenguaje len:lenguajes){
             fw.write("\n");
             for(String palabra:len.getPalabras())
                 fw.write(palabra+",");            
         }
         fw.close();
+    }
+    
+    public static void agregarAlfabeto(Alfabeto a){
+        alfabeto=a;
+    }
+    
+    public static void agregarLenguaje(Lenguaje len){
+        lenguajes.add(len);
+    }
+    
+    public static Alfabeto getAlfabeto() {
+        return alfabeto;
+    }
+
+    public static ArrayList<Lenguaje> getLenguajes() {
+        return lenguajes;
     }
 }

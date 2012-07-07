@@ -17,10 +17,9 @@ public class Lenguaje {
     }
 
     public void ingresarPalabras(String[] texto) throws Exception {
-        //"ʎ";
         for(String palabra:texto){
             if (perteneceAlfabeto(palabra) && !pertenece(palabra))
-                getPalabras().add(palabra);        
+                agregarPalabra(palabra)      ;
             else
                 throw new Exception();
         }        
@@ -36,16 +35,13 @@ public class Lenguaje {
         }
         return resultado;
     }
-
-    public boolean pertenece(String palabra) {
-        boolean resultado = false;
-        for (int i = 0; i < palabras.size(); i++) {
-            if (getPalabras().get(i).compareTo(palabra) == 0) {
-                resultado = true;
-                break;
-            }
-        }
-        return resultado;
+    
+    public void agregarPalabra(String p){
+        palabras.add(p);
+    }
+    
+    public boolean pertenece(String palabra){
+        return palabras.contains(palabra);
     }
     
     public ArrayList<String> getPalabras() {
