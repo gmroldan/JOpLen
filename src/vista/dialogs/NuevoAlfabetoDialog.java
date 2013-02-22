@@ -2,19 +2,19 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package vista.alfabeto;
+package vista.dialogs;
 
-import controlador.nuevoAlfabetoDialog.ControllerNAD;
 import javax.swing.JOptionPane;
 
-public class nuevoAlfabetoDialog extends javax.swing.JDialog {
-    private ControllerNAD controlador;    
+public class NuevoAlfabetoDialog extends javax.swing.JDialog {
+    private String[] simbolos;
+    private boolean estado = true;
     
-    public nuevoAlfabetoDialog(java.awt.Frame parent, boolean modal) {
+    public NuevoAlfabetoDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        controlador=new ControllerNAD();
         initComponents();
-        this.setLocationRelativeTo(parent);        
+        this.setLocationRelativeTo(parent);
+        this.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -28,6 +28,7 @@ public class nuevoAlfabetoDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo Alfabeto");
+        setResizable(false);
 
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -79,18 +80,18 @@ public class nuevoAlfabetoDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
-        // TODO add your handling code here:
+        estado = false;
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:        
-        try {
-            controlador.nuevoAlfabeto(textAlfabeto.getText().split(","));            
+        String texto = textAlfabeto.getText();
+        if(texto.length() > 1) {
+            simbolos = texto.split(",");
             this.dispose();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo ingresar el alfabeto", null, JOptionPane.ERROR_MESSAGE);
-        }            
+        } else {
+            JOptionPane.showMessageDialog(this, "Verifique el texto ingresado", null, JOptionPane.INFORMATION_MESSAGE);
+        }        
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -99,4 +100,12 @@ public class nuevoAlfabetoDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField textAlfabeto;
     // End of variables declaration//GEN-END:variables
+
+    public String[] getSimbolos() {
+        return simbolos;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
 }

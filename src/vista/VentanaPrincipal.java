@@ -4,23 +4,22 @@
  */
 package vista;
 
-import controlador.ControllerVP;
 import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-import modelo.Entorno;
 import modelo.Lenguaje;
-import vista.acercaDe.AcercaDeDialog;
-import vista.alfabeto.nuevoAlfabetoDialog;
-import vista.lenguaje.nuevoLenguajeDialog;
+import vista.controladores.Controlador;
+import vista.dialogs.NuevoAlfabetoDialog;
+import vista.dialogs.NuevoLenguajeDialog;
+import vista.dialogs.ayuda.AcercaDeDialog;
 
 public class VentanaPrincipal extends javax.swing.JFrame {        
-    private ControllerVP controlador;
+    private Controlador controlador;
     
     public VentanaPrincipal() {
-        controlador=new ControllerVP();
+        controlador = new Controlador();
         initComponents();
         this.setLocationRelativeTo(null);        
     }
@@ -63,6 +62,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JOpLen - Operaciones con Lenguajes");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Alfabeto"));
 
@@ -179,7 +179,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(boxOperaciones, 0, 164, Short.MAX_VALUE)
+            .addComponent(boxOperaciones, 0, 176, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -353,51 +353,59 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void opcionAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAcercaDeActionPerformed
-        // TODO add your handling code here:
         new AcercaDeDialog(this, true).setVisible(true);
     }//GEN-LAST:event_opcionAcercaDeActionPerformed
 
     private void opcionSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionSalirActionPerformed
-        // TODO add your handling code here:
-        if(JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?", null, JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
+        if(JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?", null, JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
             System.exit(0);
+        }
     }//GEN-LAST:event_opcionSalirActionPerformed
 
     private void opcionNuevoAlfabetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionNuevoAlfabetoActionPerformed
-        // TODO add your handling code here:
-        new nuevoAlfabetoDialog(this, true).setVisible(true);
-        labelAlfabeto.setText(Entorno.getAlfabeto().getSimbolos().toString());                
+        try {
+            NuevoAlfabetoDialog dialog = new NuevoAlfabetoDialog(this, true);
+            if(dialog.isEstado()) {
+                controlador.nuevoAlfabeto(dialog.getSimbolos());
+                labelAlfabeto.setText(controlador.getAlfabeto());
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_opcionNuevoAlfabetoActionPerformed
 
     private void opcionNuevoLenguajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionNuevoLenguajeActionPerformed
-        // TODO add your handling code here:
-        if(Entorno.getAlfabeto()!=null){
-           boolean estado=new nuevoLenguajeDialog(this, true).isEstado();
-           if(estado){               
-               actualizarComboBoxsLenguajes(boxLenguaje1);
-               actualizarComboBoxsLenguajes(boxLenguaje2);
-           }           
-        }           
-        else
-            JOptionPane.showMessageDialog(this, "Debe ingresar un alfabeto", "Error", JOptionPane.ERROR_MESSAGE);        
+        try {
+            if(controlador.getAlfabeto() != null) {
+                NuevoLenguajeDialog dialog = new NuevoLenguajeDialog(this, true);
+                if(dialog.isEstado()) {
+                    try {
+                        controlador.nuevoLenguaje(dialog.getPalabras());
+                        actualizarComboBoxsLenguajes(boxLenguaje1);
+                        actualizarComboBoxsLenguajes(boxLenguaje2);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        } catch(NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "Primero debe ingresar un alfabeto", null, JOptionPane.INFORMATION_MESSAGE);
+        }        
     }//GEN-LAST:event_opcionNuevoLenguajeActionPerformed
 
     private void boxLenguaje1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLenguaje1ActionPerformed
-        // TODO add your handling code here:    
-        mostrarLenguaje(boxLenguaje1,jTextArea1);
+        mostrarLenguaje(boxLenguaje1, jTextArea1);
     }//GEN-LAST:event_boxLenguaje1ActionPerformed
 
     private void boxLenguaje2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLenguaje2ActionPerformed
-        // TODO add your handling code here:
-        mostrarLenguaje(boxLenguaje2,jTextArea2);
+        mostrarLenguaje(boxLenguaje2, jTextArea2);
     }//GEN-LAST:event_boxLenguaje2ActionPerformed
 
     private void botonEvaluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEvaluarActionPerformed
-        // TODO add your handling code here:
         try{
-            String len1=boxLenguaje1.getSelectedItem().toString();
-            String len2=boxLenguaje2.getSelectedItem().toString();            
-            String potencia=textPotencia.getText();
+            String len1 = boxLenguaje1.getSelectedItem().toString();
+            String len2 = boxLenguaje2.getSelectedItem().toString();            
+            String potencia = textPotencia.getText();
             textResultado.setText(controlador.realizarOperación(len1, len2, potencia, getOperacion()));
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this, "No se puedo realizar ninguna operación", "Error", JOptionPane.ERROR_MESSAGE);            
@@ -405,15 +413,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEvaluarActionPerformed
 
     private void boxOperacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxOperacionesActionPerformed
-        // TODO add your handling code here:        
-        String operacion=boxOperaciones.getSelectedItem().toString();
+        String operacion = boxOperaciones.getSelectedItem().toString();
         if( "Complemento".equals(operacion) || "Potenciación".equals(operacion) || "Estrella de Kleene".equals(operacion) || "Inversa".equals(operacion) || "Estrella Positiva".equals(operacion)){
             boxLenguaje2.setEnabled(false);
             jTextArea2.setEnabled(false);
-            if("Potenciación".equals(operacion) || "Estrella de Kleene".equals(operacion) || "Estrella Positiva".equals(operacion))
+            if("Potenciación".equals(operacion) || "Estrella de Kleene".equals(operacion) || "Estrella Positiva".equals(operacion)) {
                 textPotencia.setEnabled(true);
-            else
+            }
+            else {
                 textPotencia.setEnabled(false);
+            }
         }
         else{
             boxLenguaje2.setEnabled(true);
@@ -423,42 +432,44 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_boxOperacionesActionPerformed
 
     private void opcionGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionGuardarActionPerformed
-        // TODO add your handling code here:
         try{
             controlador.guardarProyecto();
             JOptionPane.showMessageDialog(this, "El proyecto se guardó con éxito", null, JOptionPane.INFORMATION_MESSAGE);
-        }catch(IOException e){
+        }catch(IOException ex){
             JOptionPane.showMessageDialog(this, "No se pudo guardar el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_opcionGuardarActionPerformed
 
     private void opcionAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAbrirActionPerformed
-        // TODO add your handling code here:
         try{
             controlador.abrirProyecto();
-            labelAlfabeto.setText(Entorno.getAlfabeto().getSimbolos().toString());
+            labelAlfabeto.setText(controlador.getAlfabeto());
             actualizarComboBoxsLenguajes(boxLenguaje1);
             actualizarComboBoxsLenguajes(boxLenguaje2);
-        }catch(Exception e){
+        }catch(Exception ex){
             JOptionPane.showMessageDialog(this, "No se pudo abrir el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_opcionAbrirActionPerformed
 
     private void actualizarComboBoxsLenguajes(JComboBox comboBox){
-        String[] items = new String[Entorno.getLenguajes().size()];
-        int i=0;
-        for(Lenguaje l:Entorno.getLenguajes()){
-            items[i]=l.getNombre();
+        Object[] lenguajes = controlador.getLenguajes();
+        String[] items = new String[lenguajes.length];
+        int i = 0;
+        for(Object objecto: lenguajes){
+            items[i] = ((Lenguaje)objecto).getNombre();
+            System.out.println(((Lenguaje)objecto).getNombre());
             i++;            
         }                
-        DefaultComboBoxModel modelo=new DefaultComboBoxModel(items);
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel(items);
         comboBox.setModel(modelo);        
     }
     
     private void mostrarLenguaje(JComboBox comboBox,JTextArea textArea){        
-        for(Lenguaje l:Entorno.getLenguajes()){
-            if(comboBox.getSelectedItem()==l.getNombre())
-                textArea.setText(l.getPalabras().toString());
+        Object[] lenguajes = controlador.getLenguajes();
+        for(Object objecto: lenguajes){
+            if(comboBox.getSelectedItem() == ((Lenguaje)objecto).getNombre()) {
+                textArea.setText(((Lenguaje)objecto).toString());
+            }
         }
     }
     

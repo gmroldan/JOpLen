@@ -2,18 +2,16 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package vista.lenguaje;
+package vista.dialogs;
 
-import controlador.nuevoLenguajeDialog.ControllerNLD;
 import javax.swing.JOptionPane;
 
-public class nuevoLenguajeDialog extends javax.swing.JDialog {
-    private ControllerNLD controlador;
-    private boolean estado=false;
+public class NuevoLenguajeDialog extends javax.swing.JDialog {
+    private String[] palabras;
+    private boolean estado = true;
     
-    public nuevoLenguajeDialog(java.awt.Frame parent, boolean modal) {
+    public NuevoLenguajeDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        controlador=new ControllerNLD();
         initComponents();
         this.setLocationRelativeTo(parent);
         this.setVisible(true);
@@ -30,6 +28,7 @@ public class nuevoLenguajeDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo Lenguaje");
+        setResizable(false);
 
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -81,18 +80,17 @@ public class nuevoLenguajeDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
-        // TODO add your handling code here:
+        estado = false;
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
-        try {
-            controlador.nuevoLenguaje(textPalabras.getText().split(","));
-            estado=true;
+        String texto = textPalabras.getText();
+        if(texto.length() > 1) {
+            palabras = texto.split(",");
             this.dispose();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo ingresar el lenguaje", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Verifique el texto ingresado", null, JOptionPane.INFORMATION_MESSAGE);
         }            
     }//GEN-LAST:event_botonAceptarActionPerformed
 
@@ -105,5 +103,9 @@ public class nuevoLenguajeDialog extends javax.swing.JDialog {
 
     public boolean isEstado() {
         return estado;
+    }
+
+    public String[] getPalabras() {
+        return palabras;
     }
 }

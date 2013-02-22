@@ -7,43 +7,40 @@ package modelo;
 import java.util.ArrayList;
 
 public class Lenguaje {
+    /*
+     * Atributos
+     */
     private String nombre;    
     private ArrayList<String> palabras = new ArrayList<String>();
     
+    /*
+     * Métodos Constructores
+     */
     public Lenguaje(){}
 
     public Lenguaje(int numero) {        
-        this.nombre="Lenguaje "+String.valueOf(numero);
+        this.nombre = "Lenguaje " + String.valueOf(numero);
     }
 
-    public void ingresarPalabras(String[] texto) throws Exception {
-        for(String palabra:texto){
-            if (perteneceAlfabeto(palabra) && !pertenece(palabra))
-                agregarPalabra(palabra)      ;
-            else
-                throw new Exception();
-        }        
-    }
-
-    public boolean perteneceAlfabeto(String palabra) {
-        boolean resultado = true;
-        for (int i = 0; i < palabra.length(); i++) {
-            if (!Entorno.getAlfabeto().pertenece(palabra.charAt(i))) {
-                resultado = false;
-                break;
-            }
-        }
-        return resultado;
-    }
-    
-    public void agregarPalabra(String p){
-        palabras.add(p);
+    /*
+     * Métodos
+     */
+    public void agregarPalabra(String palabra){
+        palabras.add(palabra);
     }
     
     public boolean pertenece(String palabra){
         return palabras.contains(palabra);
     }
+
+    @Override
+    public String toString() {
+        return palabras.toString();
+    }
     
+    /*
+     * Métodos Accesores y Mutadores
+     */
     public ArrayList<String> getPalabras() {
         return palabras;
     }

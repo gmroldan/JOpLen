@@ -6,26 +6,35 @@ package modelo;
 
 import java.util.ArrayList;
 
-public class Alfabeto {    
+public class Alfabeto {
+    /*
+     * Atributos
+     */
     private ArrayList<String> simbolos = new ArrayList<String>();
 
-    public void ingresarSimbolos(String[] texto) throws Exception{        
-        for(String t:texto){
+    /*
+     * Métodos
+     */
+    public void ingresarSimbolos(String[] simbolos) throws Exception{        
+        for(String t: simbolos){
             if(!perteneceAlfabetoMayusculas(t.charAt(0))){
-                if(t.length()==1){
-                    if(!simbolos.contains(t))
+                if(t.length() == 1){
+                    if(!this.simbolos.contains(t)) {
                         agregarSimbolo(t);
+                    }
                 }
-                else
-                    throw new Exception();                    
+                else {
+                    throw new Exception();
+                }                    
             }                
-            else
-                throw new Exception();                
+            else {
+                throw new Exception();
+            }                
         }
     }
     
-    public boolean perteneceAlfabetoMayusculas(char simbolo){
-        return (simbolo<'A' || simbolo>'Z')? false:true;
+    private boolean perteneceAlfabetoMayusculas(char simbolo){
+        return (simbolo < 'A' || simbolo > 'Z')? false:true;
     }  
     
     public boolean pertenece(char simbolo){
@@ -36,6 +45,14 @@ public class Alfabeto {
         simbolos.add(s);
     }
 
+    @Override
+    public String toString() {
+        return simbolos.toString();
+    }
+
+    /*
+     * Métodos Accesores y Mutadores
+     */
     public ArrayList<String> getSimbolos() {
         return simbolos;
     }
