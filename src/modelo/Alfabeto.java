@@ -15,9 +15,9 @@ public class Alfabeto {
     /*
      * Métodos
      */
-    public void ingresarSimbolos(String[] simbolos) throws Exception{        
+    public void ingresarSimbolos(String[] simbolos) throws Exception {        
         for(String t: simbolos){
-            if(!perteneceAlfabetoMayusculas(t.charAt(0))){
+            if(!perteneceAlfabetoMayusculas(t.charAt(0))) {
                 if(t.length() == 1){
                     if(!this.simbolos.contains(t)) {
                         agregarSimbolo(t);
@@ -37,12 +37,12 @@ public class Alfabeto {
         return (simbolo < 'A' || simbolo > 'Z')? false:true;
     }  
     
-    public boolean pertenece(char simbolo){
+    public boolean pertenece(char simbolo) {
         return simbolos.contains(String.valueOf(simbolo));
     }    
     
-    public void agregarSimbolo(String s){
-        simbolos.add(s);
+    public void agregarSimbolo(String simbolo) {
+        simbolos.add(simbolo);
     }
 
     @Override

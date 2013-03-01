@@ -357,7 +357,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_opcionAcercaDeActionPerformed
 
     private void opcionSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionSalirActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?", null, JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
+        if(JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }//GEN-LAST:event_opcionSalirActionPerformed
@@ -424,7 +424,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 textPotencia.setEnabled(false);
             }
         }
-        else{
+        else {
             boxLenguaje2.setEnabled(true);
             jTextArea2.setEnabled(true);
             textPotencia.setEnabled(false);
@@ -432,21 +432,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_boxOperacionesActionPerformed
 
     private void opcionGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionGuardarActionPerformed
-        try{
+        try {
             controlador.guardarProyecto();
             JOptionPane.showMessageDialog(this, "El proyecto se guardó con éxito", null, JOptionPane.INFORMATION_MESSAGE);
-        }catch(IOException ex){
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_opcionGuardarActionPerformed
 
     private void opcionAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAbrirActionPerformed
-        try{
+        try {
             controlador.abrirProyecto();
             labelAlfabeto.setText(controlador.getAlfabeto());
             actualizarComboBoxsLenguajes(boxLenguaje1);
             actualizarComboBoxsLenguajes(boxLenguaje2);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "No se pudo abrir el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_opcionAbrirActionPerformed
@@ -464,9 +464,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         comboBox.setModel(modelo);        
     }
     
-    private void mostrarLenguaje(JComboBox comboBox,JTextArea textArea){        
+    private void mostrarLenguaje(JComboBox comboBox, JTextArea textArea) {        
         Object[] lenguajes = controlador.getLenguajes();
-        for(Object objecto: lenguajes){
+        for(Object objecto: lenguajes) {
             if(comboBox.getSelectedItem() == ((Lenguaje)objecto).getNombre()) {
                 textArea.setText(((Lenguaje)objecto).toString());
             }

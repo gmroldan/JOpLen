@@ -47,6 +47,7 @@ public class AcercaDeDialog extends javax.swing.JDialog {
         jLabel4.setText("Email:");
 
         jLabel5.setText("gmroldanutn@gmail.com");
+        jLabel5.setToolTipText("");
 
         jLabel6.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel6.setText("Licencia:");
@@ -103,7 +104,6 @@ public class AcercaDeDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOkActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_botonOkActionPerformed
     

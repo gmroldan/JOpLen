@@ -25,11 +25,11 @@ public class Lenguaje {
     /*
      * Métodos
      */
-    public void agregarPalabra(String palabra){
+    public void agregarPalabra(String palabra) {
         palabras.add(palabra);
     }
     
-    public boolean pertenece(String palabra){
+    public boolean pertenece(String palabra) {
         return palabras.contains(palabra);
     }
 
