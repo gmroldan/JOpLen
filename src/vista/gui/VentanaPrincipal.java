@@ -2,7 +2,7 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package vista;
+package vista.gui;
 
 import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import modelo.Lenguaje;
 import vista.controladores.Controlador;
-import vista.dialogs.NuevoAlfabetoDialog;
-import vista.dialogs.NuevoLenguajeDialog;
-import vista.dialogs.ayuda.AcercaDeDialog;
+import vista.gui.dialogs.NuevoAlfabetoDialog;
+import vista.gui.dialogs.NuevoLenguajeDialog;
+import vista.gui.dialogs.ayuda.AcercaDeDialog;
 
 public class VentanaPrincipal extends javax.swing.JFrame {        
     private Controlador controlador;
@@ -185,7 +185,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonEvaluar, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                     .addComponent(textPotencia))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

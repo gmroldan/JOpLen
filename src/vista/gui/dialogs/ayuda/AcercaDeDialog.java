@@ -2,7 +2,7 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package vista.dialogs.ayuda;
+package vista.gui.dialogs.ayuda;
 
 public class AcercaDeDialog extends javax.swing.JDialog {
     public AcercaDeDialog(java.awt.Frame parent, boolean modal) {

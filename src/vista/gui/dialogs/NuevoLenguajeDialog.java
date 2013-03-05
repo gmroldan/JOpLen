@@ -2,7 +2,7 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package vista.dialogs;
+package vista.gui.dialogs;
 
 import javax.swing.JOptionPane;
 
