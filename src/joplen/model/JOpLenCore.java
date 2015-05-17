@@ -4,15 +4,12 @@
  */
 package joplen.model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import joplen.utils.FileManager;
 import joplen.utils.NameFactory;
 
 public class JOpLenCore {
@@ -242,39 +239,7 @@ public class JOpLenCore {
      * @throws Exception
      */
     public void open() throws Exception {
-        BufferedReader br = new BufferedReader(new FileReader("archivo.txt"));
-        String line;
-        boolean condition = true;
-        
-        while ((line = br.readLine()) != null) {
-            NameFactory.getInstance().resetCounter();
-            
-            if (condition) {
-                Alphabet alphabetAux = new Alphabet();
-                
-                for (int i = 0; i < line.length(); i++) {
-                    alphabetAux.addSymbol(String.valueOf(line.charAt(i)));
-                }
-                
-                setAlphabet(alphabetAux);
-                condition = false;
-            } else {
-                String wordAux = "";
-                Language languageAux = new Language();
-                
-                for (int i = 0; i < line.length(); i++) {
-                    if (!",".equals(String.valueOf(line.charAt(i)))) {
-                        wordAux = wordAux + "" + String.valueOf(line.charAt(i));                    
-                    } else {
-                        languageAux.addWord(wordAux);                        
-                        wordAux = "";
-                    }
-                }        
-                languageAux.setName(NameFactory.getInstance().getLanguageName());
-                addLanguage(languageAux);
-            }                
-        }
-        br.close();
+        FileManager.getInstance().openFile();
     }
     
     /**
@@ -283,19 +248,7 @@ public class JOpLenCore {
      * @throws IOException 
      */
     public void save() throws IOException {
-        FileWriter fw = new FileWriter(new File("archivo.txt"));
-        
-        for (String symbol: getAlphabet().getSymbols()) {
-            fw.write(symbol);
-        }        
-        
-        for (Language language: languagesMap.values()) {
-            fw.write("\n");
-            for (String word: language.getWordList()) {
-                fw.write(word + ",");
-            }            
-        }
-        fw.close();
+        FileManager.getInstance().save();
     }
     
     /**
@@ -303,7 +256,7 @@ public class JOpLenCore {
      * 
      * @param language Language to be added.
      */
-    private void addLanguage(final Language language) {
+    public void addLanguage(final Language language) {
         languagesMap.put(language.getName(), language);
     }
     
@@ -311,7 +264,7 @@ public class JOpLenCore {
         return alphabet;
     }
     
-    private void setAlphabet(Alphabet alphabet) {
+    public void setAlphabet(Alphabet alphabet) {
         this.alphabet = alphabet;
     }
 
