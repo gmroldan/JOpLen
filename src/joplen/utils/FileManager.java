@@ -6,6 +6,7 @@ package joplen.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class FileManager {
         return INSTANCE;
     }
     
-    public void openFile() throws Exception {
+    public void openFile() throws FileNotFoundException, IOException {
         BufferedReader br = new BufferedReader(new FileReader(FILE_NAME_DEFAULT));
         String line;
         boolean condition = true;

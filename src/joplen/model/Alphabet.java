@@ -6,6 +6,7 @@ package joplen.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import joplen.exceptions.JOpLenException;
 
 public class Alphabet {
     private final Set<String> symbols;
@@ -21,14 +22,14 @@ public class Alphabet {
      * Adds an array of symbols into the Alphabet.
      * 
      * @param symbols Array of symbols that should be added into the Alphabet.
-     * @throws Exception When the length of a symbol is greater than 1.
+     * @throws JOpLenException When the length of a symbol is greater than 1.
      */
-    public void addSymbols(final String[] symbols) throws Exception {        
+    public void addSymbols(final String[] symbols) throws JOpLenException {        
         for (String symbol: symbols) {
             if (symbol.length() == 1) {
                 addSymbol(symbol.toLowerCase());
             } else {
-                throw new Exception();
+                throw new JOpLenException("The length of a symbol can't be greater than 1.");
             }           
         }
     }

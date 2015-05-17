@@ -4,11 +4,13 @@
  */
 package joplen.model;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import joplen.exceptions.JOpLenException;
 import joplen.utils.FileManager;
 import joplen.utils.NameFactory;
 
@@ -36,9 +38,9 @@ public class JOpLenCore {
      * Creates a new Alphabet.
      * 
      * @param symbols Symbols of the Alphabet.
-     * @throws Exception If something goes wrong.
+     * @throws JOpLenException If something goes wrong.
      */
-    public void newAlphabet(String[] symbols) throws Exception {
+    public void newAlphabet(String[] symbols) throws JOpLenException {
         this.alphabet = new Alphabet();
         this.alphabet.addSymbols(symbols);
     }
@@ -47,16 +49,16 @@ public class JOpLenCore {
      * Creates a new Language and adds it into the Collection.
      * 
      * @param words Words of the language that will be created.
-     * @throws Exception If something goes wrong.
+     * @throws JOpLenException If something goes wrong.
      */
-    public void newLanguage(String[] words) throws Exception {
+    public void newLanguage(String[] words) throws JOpLenException {
         Language language = new Language();
         
         for (String word: words) {
             if (belongsToAlphabet(word)) {
                 language.addWord(word);
             } else {
-                throw new Exception("Los símbolos de la palabra '" + word + "' no pertenecen al alfabeto");
+                throw new JOpLenException("Los símbolos de la palabra '" + word + "' no pertenecen al alfabeto");
             }
         }
         
@@ -157,20 +159,20 @@ public class JOpLenCore {
        return result;
     }
     
-    public Language potenciacion(final Language language, final int potencia) {
+    public Language potenciacion(final Language language, final int exponent) {
         Language result = new Language();
         
-        if (potencia == 0) {
+        if (exponent == 0) {
             result.addWord(EMPTY_WORD);
-        } else if (potencia == 1) {
+        } else if (exponent == 1) {
             cloneLanguage(language, result);
-        } else if (potencia > 1) {
+        } else if (exponent > 1) {
             Language aux = new Language();            
             String word = null;
             
             cloneLanguage(language, aux);
             
-            for (int i = 1; i < potencia; i++) {
+            for (int i = 1; i < exponent; i++) {
                 for (String word1: aux.getWordList()) {                    
                     for (String word2: language.getWordList()) {
                         word = word1.concat(word2);                                 
@@ -202,7 +204,7 @@ public class JOpLenCore {
             result.addWord(EMPTY_WORD);
         }
         
-        for (int i = 1; i <= exponent; i++){
+        for (int i = 1; i <= exponent; i++) {
             for (String word: union(result, potenciacion(language, i)).getWordList()) {
                 aux.addWord(word);                
             }
@@ -236,19 +238,27 @@ public class JOpLenCore {
     /**
      * Opens a text file and load the information in the application.
      * 
-     * @throws Exception
+     * @throws JOpLenException
      */
-    public void open() throws Exception {
-        FileManager.getInstance().openFile();
+    public void open() throws JOpLenException {
+        try {
+            FileManager.getInstance().openFile();
+        } catch (IOException ex) {
+            throw new JOpLenException("There was an error opening the project.", ex);
+        }
     }
     
     /**
      * Saves the current application status into a text file.
      * 
-     * @throws IOException 
+     * @throws JOpLenException 
      */
-    public void save() throws IOException {
-        FileManager.getInstance().save();
+    public void save() throws JOpLenException {
+        try {
+            FileManager.getInstance().save();
+        } catch (IOException ex) {
+            throw new JOpLenException("There was an error during the saving process.", ex);
+        }
     }
     
     /**

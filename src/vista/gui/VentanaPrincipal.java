@@ -4,22 +4,22 @@
  */
 package vista.gui;
 
-import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import joplen.model.Language;
-import vista.controladores.Controlador;
+import joplen.controller.JOpLenController;
+import joplen.exceptions.JOpLenException;
 import vista.gui.dialogs.NuevoAlfabetoDialog;
 import vista.gui.dialogs.NuevoLenguajeDialog;
 import vista.gui.dialogs.ayuda.AcercaDeDialog;
 
 public class VentanaPrincipal extends javax.swing.JFrame {        
-    private Controlador controlador;
+    private JOpLenController controller;
     
     public VentanaPrincipal() {
-        controlador = new Controlador();
+        controller = new JOpLenController();
         initComponents();
         this.setLocationRelativeTo(null);        
     }
@@ -366,24 +366,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         try {
             NuevoAlfabetoDialog dialog = new NuevoAlfabetoDialog(this, true);
             if(dialog.isEstado()) {
-                controlador.nuevoAlfabeto(dialog.getSimbolos());
-                labelAlfabeto.setText(controlador.getAlfabeto());
+                controller.newAlphabet(dialog.getSimbolos());
+                labelAlfabeto.setText(controller.getAlphabet());
             }
-        } catch (Exception ex) {
+        } catch (JOpLenException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_opcionNuevoAlfabetoActionPerformed
 
     private void opcionNuevoLenguajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionNuevoLenguajeActionPerformed
         try {
-            if(controlador.getAlfabeto() != null) {
+            if(controller.getAlphabet() != null) {
                 NuevoLenguajeDialog dialog = new NuevoLenguajeDialog(this, true);
                 if(dialog.isEstado()) {
                     try {
-                        controlador.nuevoLenguaje(dialog.getPalabras());
+                        controller.newLanguage(dialog.getPalabras());
                         actualizarComboBoxsLenguajes(boxLenguaje1);
                         actualizarComboBoxsLenguajes(boxLenguaje2);
-                    } catch (Exception ex) {
+                    } catch (JOpLenException ex) {
                         JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -406,7 +406,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String len1 = boxLenguaje1.getSelectedItem().toString();
             String len2 = boxLenguaje2.getSelectedItem().toString();            
             String potencia = textPotencia.getText();
-            textResultado.setText(controlador.realizarOperación(len1, len2, potencia, getOperacion()));
+            textResultado.setText(controller.resolve(len1, len2, potencia, getOperacion()));
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this, "No se puedo realizar ninguna operación", "Error", JOptionPane.ERROR_MESSAGE);            
         }        
@@ -433,26 +433,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void opcionGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionGuardarActionPerformed
         try {
-            controlador.guardarProyecto();
+            controller.saveProject();
             JOptionPane.showMessageDialog(this, "El proyecto se guardó con éxito", null, JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (JOpLenException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_opcionGuardarActionPerformed
 
     private void opcionAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAbrirActionPerformed
         try {
-            controlador.abrirProyecto();
-            labelAlfabeto.setText(controlador.getAlfabeto());
+            controller.openProject();
+            labelAlfabeto.setText(controller.getAlphabet());
             actualizarComboBoxsLenguajes(boxLenguaje1);
             actualizarComboBoxsLenguajes(boxLenguaje2);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo abrir el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (JOpLenException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_opcionAbrirActionPerformed
 
     private void actualizarComboBoxsLenguajes(JComboBox comboBox){
-        Object[] lenguajes = controlador.getLenguajes();
+        Object[] lenguajes = controller.getLanguages();
         String[] items = new String[lenguajes.length];
         int i = 0;
         for(Object objecto: lenguajes){
@@ -465,7 +465,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     private void mostrarLenguaje(JComboBox comboBox, JTextArea textArea) {        
-        Object[] lenguajes = controlador.getLenguajes();
+        Object[] lenguajes = controller.getLanguages();
         for(Object objecto: lenguajes) {
             if(comboBox.getSelectedItem() == ((Language)objecto).getName()) {
                 textArea.setText(((Language)objecto).toString());
