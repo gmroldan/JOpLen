@@ -9,7 +9,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-import modelo.Lenguaje;
+import joplen.model.Language;
 import vista.controladores.Controlador;
 import vista.gui.dialogs.NuevoAlfabetoDialog;
 import vista.gui.dialogs.NuevoLenguajeDialog;
@@ -164,7 +164,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        botonEvaluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/operation.png"))); // NOI18N
+        botonEvaluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/operation.png"))); // NOI18N
         botonEvaluar.setText("Evaluar");
         botonEvaluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,7 +217,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Evaluación de Lenguajes"));
@@ -245,7 +245,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Archivo");
 
         opcionAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        opcionAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/open.png"))); // NOI18N
+        opcionAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/open.png"))); // NOI18N
         opcionAbrir.setText("Abrir");
         opcionAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,7 +255,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu1.add(opcionAbrir);
 
         opcionGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        opcionGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/save.png"))); // NOI18N
+        opcionGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/save.png"))); // NOI18N
         opcionGuardar.setText("Guardar");
         opcionGuardar.setToolTipText("Guarda el alfabeto y los lenguajes en un archivo de texto");
         opcionGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +266,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu1.add(opcionGuardar);
         jMenu1.add(jSeparator2);
 
-        opcionSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/close.png"))); // NOI18N
+        opcionSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/close.png"))); // NOI18N
         opcionSalir.setText("Salir");
         opcionSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,7 +280,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu3.setText("Alfabeto");
 
         opcionNuevoAlfabeto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        opcionNuevoAlfabeto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/math.png"))); // NOI18N
+        opcionNuevoAlfabeto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/math.png"))); // NOI18N
         opcionNuevoAlfabeto.setText("Nuevo Alfabeto");
         opcionNuevoAlfabeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -294,7 +294,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu4.setText("Lenguaje");
 
         opcionNuevoLenguaje.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        opcionNuevoLenguaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/new.png"))); // NOI18N
+        opcionNuevoLenguaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/new.png"))); // NOI18N
         opcionNuevoLenguaje.setText("Nuevo Lenguaje");
         opcionNuevoLenguaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,7 +307,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Ayuda");
 
-        opcionAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/icons/about.png"))); // NOI18N
+        opcionAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/about.png"))); // NOI18N
         opcionAcercaDe.setText("Acerca de");
         opcionAcercaDe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -456,8 +456,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String[] items = new String[lenguajes.length];
         int i = 0;
         for(Object objecto: lenguajes){
-            items[i] = ((Lenguaje)objecto).getNombre();
-            System.out.println(((Lenguaje)objecto).getNombre());
+            items[i] = ((Language)objecto).getName();
+            System.out.println(((Language)objecto).getName());
             i++;            
         }                
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(items);
@@ -467,8 +467,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void mostrarLenguaje(JComboBox comboBox, JTextArea textArea) {        
         Object[] lenguajes = controlador.getLenguajes();
         for(Object objecto: lenguajes) {
-            if(comboBox.getSelectedItem() == ((Lenguaje)objecto).getNombre()) {
-                textArea.setText(((Lenguaje)objecto).toString());
+            if(comboBox.getSelectedItem() == ((Language)objecto).getName()) {
+                textArea.setText(((Language)objecto).toString());
             }
         }
     }
