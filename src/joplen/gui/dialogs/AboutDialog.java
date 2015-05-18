@@ -2,10 +2,10 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package vista.gui.dialogs.ayuda;
+package joplen.gui.dialogs;
 
-public class AcercaDeDialog extends javax.swing.JDialog {
-    public AcercaDeDialog(java.awt.Frame parent, boolean modal) {
+public class AboutDialog extends javax.swing.JDialog {
+    public AboutDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);        
@@ -15,7 +15,7 @@ public class AcercaDeDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botonOk = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -28,10 +28,10 @@ public class AcercaDeDialog extends javax.swing.JDialog {
         setTitle("Acerca de");
         setResizable(false);
 
-        botonOk.setText("Ok");
-        botonOk.addActionListener(new java.awt.event.ActionListener() {
+        btnOk.setText("Ok");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonOkActionPerformed(evt);
+                btnOkActionPerformed(evt);
             }
         });
 
@@ -74,7 +74,7 @@ public class AcercaDeDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(botonOk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnOk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -96,19 +96,19 @@ public class AcercaDeDialog extends javax.swing.JDialog {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonOk)
+                .addComponent(btnOk)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOkActionPerformed
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         this.dispose();
-    }//GEN-LAST:event_botonOkActionPerformed
+    }//GEN-LAST:event_btnOkActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonOk;
+    private javax.swing.JButton btnOk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

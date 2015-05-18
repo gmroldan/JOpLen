@@ -2,7 +2,7 @@
  *  Copyright (C) 2012  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package vista.gui;
+package joplen.gui;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -11,17 +11,16 @@ import javax.swing.JTextArea;
 import joplen.model.Language;
 import joplen.controller.JOpLenController;
 import joplen.exceptions.JOpLenException;
-import vista.gui.dialogs.NuevoAlfabetoDialog;
-import vista.gui.dialogs.NuevoLenguajeDialog;
-import vista.gui.dialogs.ayuda.AcercaDeDialog;
+import joplen.gui.dialogs.NewAlphabetDialog;
+import joplen.gui.dialogs.NewLanguageDialog;
+import joplen.gui.dialogs.AboutDialog;
 
-public class VentanaPrincipal extends javax.swing.JFrame {        
-    private JOpLenController controller;
+public class MainWindow extends javax.swing.JFrame {        
+    private final JOpLenController controller;
     
-    public VentanaPrincipal() {
+    public MainWindow() {
         controller = new JOpLenController();
-        initComponents();
-        this.setLocationRelativeTo(null);        
+        initComponents();      
     }
 
     @SuppressWarnings("unchecked")
@@ -30,35 +29,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        labelAlfabeto = new javax.swing.JLabel();
+        labelAlphabet = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        boxLenguaje1 = new javax.swing.JComboBox();
+        boxLanguage1 = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtAreaLanguage1 = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
-        boxLenguaje2 = new javax.swing.JComboBox();
+        boxLangauge2 = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtAreaLanguage2 = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
-        boxOperaciones = new javax.swing.JComboBox();
-        botonEvaluar = new javax.swing.JButton();
-        textPotencia = new javax.swing.JTextField();
+        boxOperations = new javax.swing.JComboBox();
+        btnResolve = new javax.swing.JButton();
+        textExponent = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        textResultado = new javax.swing.JTextArea();
+        txtResult = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        opcionAbrir = new javax.swing.JMenuItem();
-        opcionGuardar = new javax.swing.JMenuItem();
+        optionOpen = new javax.swing.JMenuItem();
+        optionSave = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        opcionSalir = new javax.swing.JMenuItem();
+        optionQuit = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        opcionNuevoAlfabeto = new javax.swing.JMenuItem();
+        optionNewAlphabet = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        opcionNuevoLenguaje = new javax.swing.JMenuItem();
+        optionNewLanguage = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        opcionAcercaDe = new javax.swing.JMenuItem();
+        optionAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JOpLen - Operaciones con Lenguajes");
@@ -68,7 +67,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel1.setText("Σ =");
 
-        labelAlfabeto.setText("{No se ingresó ningún alfabeto}");
+        labelAlphabet.setText("{No se ingresó ningún alfabeto}");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -78,7 +77,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelAlfabeto)
+                .addComponent(labelAlphabet)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -86,21 +85,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(labelAlfabeto))
+                    .addComponent(labelAlphabet))
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Lenguajes"));
 
-        boxLenguaje1.addActionListener(new java.awt.event.ActionListener() {
+        boxLanguage1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxLenguaje1ActionPerformed(evt);
+                boxLanguage1ActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(3);
-        jTextArea1.setRows(3);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtAreaLanguage1.setColumns(3);
+        txtAreaLanguage1.setRows(3);
+        jScrollPane1.setViewportView(txtAreaLanguage1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -109,7 +108,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(boxLenguaje1, 0, 248, Short.MAX_VALUE)
+                    .addComponent(boxLanguage1, 0, 248, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -117,21 +116,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(boxLenguaje1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boxLanguage1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1)
                 .addContainerGap())
         );
 
-        boxLenguaje2.addActionListener(new java.awt.event.ActionListener() {
+        boxLangauge2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxLenguaje2ActionPerformed(evt);
+                boxLangauge2ActionPerformed(evt);
             }
         });
 
-        jTextArea2.setColumns(3);
-        jTextArea2.setRows(3);
-        jScrollPane2.setViewportView(jTextArea2);
+        txtAreaLanguage2.setColumns(3);
+        txtAreaLanguage2.setRows(3);
+        jScrollPane2.setViewportView(txtAreaLanguage2);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -140,7 +139,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(boxLenguaje2, 0, 249, Short.MAX_VALUE)
+                    .addComponent(boxLangauge2, 0, 249, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -148,7 +147,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(boxLenguaje2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boxLangauge2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2)
                 .addContainerGap())
@@ -156,45 +155,45 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
 
-        boxOperaciones.setMaximumRowCount(9);
-        boxOperaciones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Unión", "Diferencia", "Intersección", "Complemento", "Producto", "Potenciación", "Estrella de Kleene", "Estrella Positiva", "Inversa" }));
-        boxOperaciones.addActionListener(new java.awt.event.ActionListener() {
+        boxOperations.setMaximumRowCount(9);
+        boxOperations.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Unión", "Diferencia", "Intersección", "Complemento", "Producto", "Potenciación", "Estrella de Kleene", "Estrella Positiva", "Inversa" }));
+        boxOperations.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxOperacionesActionPerformed(evt);
+                boxOperationsActionPerformed(evt);
             }
         });
 
-        botonEvaluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/operation.png"))); // NOI18N
-        botonEvaluar.setText("Evaluar");
-        botonEvaluar.addActionListener(new java.awt.event.ActionListener() {
+        btnResolve.setIcon(new javax.swing.ImageIcon(getClass().getResource("/joplen/gui/icons/operation.png"))); // NOI18N
+        btnResolve.setText("Evaluar");
+        btnResolve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEvaluarActionPerformed(evt);
+                btnResolveActionPerformed(evt);
             }
         });
 
-        textPotencia.setToolTipText("Ingrese aquí el exponente para la potencia");
-        textPotencia.setEnabled(false);
+        textExponent.setToolTipText("Ingrese aquí el exponente para la potencia");
+        textExponent.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(boxOperaciones, 0, 176, Short.MAX_VALUE)
+            .addComponent(boxOperations, 0, 176, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(botonEvaluar, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                    .addComponent(textPotencia))
+                    .addComponent(btnResolve, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                    .addComponent(textExponent))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(boxOperaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boxOperations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(textPotencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textExponent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(botonEvaluar)
+                .addComponent(btnResolve)
                 .addContainerGap())
         );
 
@@ -222,9 +221,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Evaluación de Lenguajes"));
 
-        textResultado.setColumns(20);
-        textResultado.setRows(5);
-        jScrollPane3.setViewportView(textResultado);
+        txtResult.setColumns(20);
+        txtResult.setRows(5);
+        jScrollPane3.setViewportView(txtResult);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -244,77 +243,77 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        opcionAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        opcionAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/open.png"))); // NOI18N
-        opcionAbrir.setText("Abrir");
-        opcionAbrir.addActionListener(new java.awt.event.ActionListener() {
+        optionOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        optionOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/joplen/gui/icons/open.png"))); // NOI18N
+        optionOpen.setText("Abrir");
+        optionOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionAbrirActionPerformed(evt);
+                optionOpenActionPerformed(evt);
             }
         });
-        jMenu1.add(opcionAbrir);
+        jMenu1.add(optionOpen);
 
-        opcionGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        opcionGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/save.png"))); // NOI18N
-        opcionGuardar.setText("Guardar");
-        opcionGuardar.setToolTipText("Guarda el alfabeto y los lenguajes en un archivo de texto");
-        opcionGuardar.addActionListener(new java.awt.event.ActionListener() {
+        optionSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        optionSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/joplen/gui/icons/save.png"))); // NOI18N
+        optionSave.setText("Guardar");
+        optionSave.setToolTipText("Guarda el alfabeto y los lenguajes en un archivo de texto");
+        optionSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionGuardarActionPerformed(evt);
+                optionSaveActionPerformed(evt);
             }
         });
-        jMenu1.add(opcionGuardar);
+        jMenu1.add(optionSave);
         jMenu1.add(jSeparator2);
 
-        opcionSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/close.png"))); // NOI18N
-        opcionSalir.setText("Salir");
-        opcionSalir.addActionListener(new java.awt.event.ActionListener() {
+        optionQuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/joplen/gui/icons/close.png"))); // NOI18N
+        optionQuit.setText("Salir");
+        optionQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionSalirActionPerformed(evt);
+                optionQuitActionPerformed(evt);
             }
         });
-        jMenu1.add(opcionSalir);
+        jMenu1.add(optionQuit);
 
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Alfabeto");
 
-        opcionNuevoAlfabeto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        opcionNuevoAlfabeto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/math.png"))); // NOI18N
-        opcionNuevoAlfabeto.setText("Nuevo Alfabeto");
-        opcionNuevoAlfabeto.addActionListener(new java.awt.event.ActionListener() {
+        optionNewAlphabet.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        optionNewAlphabet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/joplen/gui/icons/math.png"))); // NOI18N
+        optionNewAlphabet.setText("Nuevo Alfabeto");
+        optionNewAlphabet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionNuevoAlfabetoActionPerformed(evt);
+                optionNewAlphabetActionPerformed(evt);
             }
         });
-        jMenu3.add(opcionNuevoAlfabeto);
+        jMenu3.add(optionNewAlphabet);
 
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Lenguaje");
 
-        opcionNuevoLenguaje.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        opcionNuevoLenguaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/new.png"))); // NOI18N
-        opcionNuevoLenguaje.setText("Nuevo Lenguaje");
-        opcionNuevoLenguaje.addActionListener(new java.awt.event.ActionListener() {
+        optionNewLanguage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        optionNewLanguage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/joplen/gui/icons/new.png"))); // NOI18N
+        optionNewLanguage.setText("Nuevo Lenguaje");
+        optionNewLanguage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionNuevoLenguajeActionPerformed(evt);
+                optionNewLanguageActionPerformed(evt);
             }
         });
-        jMenu4.add(opcionNuevoLenguaje);
+        jMenu4.add(optionNewLanguage);
 
         jMenuBar1.add(jMenu4);
 
         jMenu2.setText("Ayuda");
 
-        opcionAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/gui/icons/about.png"))); // NOI18N
-        opcionAcercaDe.setText("Acerca de");
-        opcionAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+        optionAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/joplen/gui/icons/about.png"))); // NOI18N
+        optionAbout.setText("Acerca de");
+        optionAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionAcercaDeActionPerformed(evt);
+                optionAboutActionPerformed(evt);
             }
         });
-        jMenu2.add(opcionAcercaDe);
+        jMenu2.add(optionAbout);
 
         jMenuBar1.add(jMenu2);
 
@@ -349,132 +348,137 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGap(12, 12, 12))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(805, 634));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void opcionAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAcercaDeActionPerformed
-        new AcercaDeDialog(this, true).setVisible(true);
-    }//GEN-LAST:event_opcionAcercaDeActionPerformed
+    private void optionAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionAboutActionPerformed
+        new AboutDialog(this, true).setVisible(true);
+    }//GEN-LAST:event_optionAboutActionPerformed
 
-    private void opcionSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionSalirActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+    private void optionQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionQuitActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    }//GEN-LAST:event_opcionSalirActionPerformed
+    }//GEN-LAST:event_optionQuitActionPerformed
 
-    private void opcionNuevoAlfabetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionNuevoAlfabetoActionPerformed
+    private void optionNewAlphabetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionNewAlphabetActionPerformed
         try {
-            NuevoAlfabetoDialog dialog = new NuevoAlfabetoDialog(this, true);
-            if(dialog.isEstado()) {
-                controller.newAlphabet(dialog.getSimbolos());
-                labelAlfabeto.setText(controller.getAlphabet());
+            NewAlphabetDialog dialog = new NewAlphabetDialog(this, true);
+            if (dialog.isStatus()) {
+                controller.newAlphabet(dialog.getSymbols());
+                labelAlphabet.setText(controller.getAlphabet().toString());
             }
         } catch (JOpLenException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage(ex.getMessage());
         }
-    }//GEN-LAST:event_opcionNuevoAlfabetoActionPerformed
+    }//GEN-LAST:event_optionNewAlphabetActionPerformed
 
-    private void opcionNuevoLenguajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionNuevoLenguajeActionPerformed
+    private void optionNewLanguageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionNewLanguageActionPerformed
         try {
-            if(controller.getAlphabet() != null) {
-                NuevoLenguajeDialog dialog = new NuevoLenguajeDialog(this, true);
-                if(dialog.isEstado()) {
-                    try {
-                        controller.newLanguage(dialog.getPalabras());
-                        actualizarComboBoxsLenguajes(boxLenguaje1);
-                        actualizarComboBoxsLenguajes(boxLenguaje2);
-                    } catch (JOpLenException ex) {
-                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+            if (controller.getAlphabet() == null) {
+                throw new JOpLenException("Primero debe ingresar un alfabeto");
+            }
+            
+            NewLanguageDialog dialog = new NewLanguageDialog(this, true);
+            if (dialog.isStatus()) {
+                try {
+                    controller.newLanguage(dialog.getWords());
+                    updateComboBoxsLanguages(boxLanguage1);
+                    updateComboBoxsLanguages(boxLangauge2);
+                } catch (JOpLenException ex) {
+                    showErrorMessage(ex.getMessage());
                 }
-            }
-        } catch(NullPointerException ex) {
-            JOptionPane.showMessageDialog(this, "Primero debe ingresar un alfabeto", null, JOptionPane.INFORMATION_MESSAGE);
+            }            
+        } catch(JOpLenException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), null, JOptionPane.INFORMATION_MESSAGE);
         }        
-    }//GEN-LAST:event_opcionNuevoLenguajeActionPerformed
+    }//GEN-LAST:event_optionNewLanguageActionPerformed
 
-    private void boxLenguaje1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLenguaje1ActionPerformed
-        mostrarLenguaje(boxLenguaje1, jTextArea1);
-    }//GEN-LAST:event_boxLenguaje1ActionPerformed
+    private void boxLanguage1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLanguage1ActionPerformed
+        showLanguage(boxLanguage1, txtAreaLanguage1);
+    }//GEN-LAST:event_boxLanguage1ActionPerformed
 
-    private void boxLenguaje2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLenguaje2ActionPerformed
-        mostrarLenguaje(boxLenguaje2, jTextArea2);
-    }//GEN-LAST:event_boxLenguaje2ActionPerformed
+    private void boxLangauge2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLangauge2ActionPerformed
+        showLanguage(boxLangauge2, txtAreaLanguage2);
+    }//GEN-LAST:event_boxLangauge2ActionPerformed
 
-    private void botonEvaluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEvaluarActionPerformed
+    private void btnResolveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResolveActionPerformed
         try{
-            String len1 = boxLenguaje1.getSelectedItem().toString();
-            String len2 = boxLenguaje2.getSelectedItem().toString();            
-            String potencia = textPotencia.getText();
-            textResultado.setText(controller.resolve(len1, len2, potencia, getOperacion()));
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "No se puedo realizar ninguna operación", "Error", JOptionPane.ERROR_MESSAGE);            
+            String language1 = boxLanguage1.getSelectedItem().toString();
+            String language2 = boxLangauge2.getSelectedItem().toString();            
+            String exponent = textExponent.getText();
+            txtResult.setText(controller.resolve(language1, language2, exponent, getOperation()));
+        } catch(Exception ex) {
+            showErrorMessage("No se puedo realizar ninguna operación");
         }        
-    }//GEN-LAST:event_botonEvaluarActionPerformed
+    }//GEN-LAST:event_btnResolveActionPerformed
 
-    private void boxOperacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxOperacionesActionPerformed
-        String operacion = boxOperaciones.getSelectedItem().toString();
-        if( "Complemento".equals(operacion) || "Potenciación".equals(operacion) || "Estrella de Kleene".equals(operacion) || "Inversa".equals(operacion) || "Estrella Positiva".equals(operacion)){
-            boxLenguaje2.setEnabled(false);
-            jTextArea2.setEnabled(false);
-            if("Potenciación".equals(operacion) || "Estrella de Kleene".equals(operacion) || "Estrella Positiva".equals(operacion)) {
-                textPotencia.setEnabled(true);
+    private void boxOperationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxOperationsActionPerformed
+        String operation = boxOperations.getSelectedItem().toString();
+        
+        if ("Complemento".equals(operation) || "Potenciación".equals(operation) || "Estrella de Kleene".equals(operation) || "Inversa".equals(operation) || "Estrella Positiva".equals(operation)) {
+            boxLangauge2.setEnabled(false);
+            txtAreaLanguage2.setEnabled(false);
+            if ("Potenciación".equals(operation) || "Estrella de Kleene".equals(operation) || "Estrella Positiva".equals(operation)) {
+                textExponent.setEnabled(true);
+            } else {
+                textExponent.setEnabled(false);
             }
-            else {
-                textPotencia.setEnabled(false);
-            }
-        }
-        else {
-            boxLenguaje2.setEnabled(true);
-            jTextArea2.setEnabled(true);
-            textPotencia.setEnabled(false);
+        } else {
+            boxLangauge2.setEnabled(true);
+            txtAreaLanguage2.setEnabled(true);
+            textExponent.setEnabled(false);
         }            
-    }//GEN-LAST:event_boxOperacionesActionPerformed
+    }//GEN-LAST:event_boxOperationsActionPerformed
 
-    private void opcionGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionGuardarActionPerformed
+    private void optionSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionSaveActionPerformed
         try {
             controller.saveProject();
             JOptionPane.showMessageDialog(this, "El proyecto se guardó con éxito", null, JOptionPane.INFORMATION_MESSAGE);
         } catch (JOpLenException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage(ex.getMessage());
         }
-    }//GEN-LAST:event_opcionGuardarActionPerformed
+    }//GEN-LAST:event_optionSaveActionPerformed
 
-    private void opcionAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAbrirActionPerformed
+    private void optionOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionOpenActionPerformed
         try {
             controller.openProject();
-            labelAlfabeto.setText(controller.getAlphabet());
-            actualizarComboBoxsLenguajes(boxLenguaje1);
-            actualizarComboBoxsLenguajes(boxLenguaje2);
+            labelAlphabet.setText(controller.getAlphabet().toString());
+            updateComboBoxsLanguages(boxLanguage1);
+            updateComboBoxsLanguages(boxLangauge2);
         } catch (JOpLenException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            showErrorMessage(ex.getMessage());
         }        
-    }//GEN-LAST:event_opcionAbrirActionPerformed
+    }//GEN-LAST:event_optionOpenActionPerformed
 
-    private void actualizarComboBoxsLenguajes(JComboBox comboBox){
-        Object[] lenguajes = controller.getLanguages();
-        String[] items = new String[lenguajes.length];
+    private void updateComboBoxsLanguages(JComboBox comboBox) {
+        Object[] languages = controller.getLanguages();
+        String[] items = new String[languages.length];
         int i = 0;
-        for(Object objecto: lenguajes){
-            items[i] = ((Language)objecto).getName();
-            System.out.println(((Language)objecto).getName());
+        for(Object object: languages){
+            items[i] = ((Language) object).getName();
             i++;            
         }                
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(items);
         comboBox.setModel(modelo);        
     }
     
-    private void mostrarLenguaje(JComboBox comboBox, JTextArea textArea) {        
-        Object[] lenguajes = controller.getLanguages();
-        for(Object objecto: lenguajes) {
-            if(comboBox.getSelectedItem() == ((Language)objecto).getName()) {
-                textArea.setText(((Language)objecto).toString());
+    private void showLanguage(JComboBox comboBox, JTextArea textArea) {        
+        Object[] languages = controller.getLanguages();
+        for(Object object: languages) {
+            if(comboBox.getSelectedItem() == ((Language) object).getName()) {
+                textArea.setText(((Language) object).toString());
             }
         }
     }
     
-    private int getOperacion(){        
-        return boxOperaciones.getSelectedIndex();
+    private void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    private int getOperation(){        
+        return boxOperations.getSelectedIndex();
     }
     
     public static void main(String args[]) {
@@ -492,26 +496,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipal().setVisible(true);
+                new MainWindow().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonEvaluar;
-    private javax.swing.JComboBox boxLenguaje1;
-    private javax.swing.JComboBox boxLenguaje2;
-    private javax.swing.JComboBox boxOperaciones;
+    private javax.swing.JComboBox boxLangauge2;
+    private javax.swing.JComboBox boxLanguage1;
+    private javax.swing.JComboBox boxOperations;
+    private javax.swing.JButton btnResolve;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -528,16 +532,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JLabel labelAlfabeto;
-    private javax.swing.JMenuItem opcionAbrir;
-    private javax.swing.JMenuItem opcionAcercaDe;
-    private javax.swing.JMenuItem opcionGuardar;
-    private javax.swing.JMenuItem opcionNuevoAlfabeto;
-    private javax.swing.JMenuItem opcionNuevoLenguaje;
-    private javax.swing.JMenuItem opcionSalir;
-    private javax.swing.JTextField textPotencia;
-    private javax.swing.JTextArea textResultado;
+    private javax.swing.JLabel labelAlphabet;
+    private javax.swing.JMenuItem optionAbout;
+    private javax.swing.JMenuItem optionNewAlphabet;
+    private javax.swing.JMenuItem optionNewLanguage;
+    private javax.swing.JMenuItem optionOpen;
+    private javax.swing.JMenuItem optionQuit;
+    private javax.swing.JMenuItem optionSave;
+    private javax.swing.JTextField textExponent;
+    private javax.swing.JTextArea txtAreaLanguage1;
+    private javax.swing.JTextArea txtAreaLanguage2;
+    private javax.swing.JTextArea txtResult;
     // End of variables declaration//GEN-END:variables
+ 
 }

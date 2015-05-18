@@ -2,6 +2,7 @@ package joplen.controller;
 
 import java.io.IOException;
 import joplen.exceptions.JOpLenException;
+import joplen.model.Alphabet;
 import joplen.model.JOpLenCore;
 
 public class JOpLenController {
@@ -74,8 +75,8 @@ public class JOpLenController {
         jOpLenCore.open();
     }
     
-    public String getAlphabet() {
-        return jOpLenCore.getAlphabet().toString();
+    public Alphabet getAlphabet() {
+        return jOpLenCore.getAlphabet();
     }
     
     public Object[] getLanguages() {

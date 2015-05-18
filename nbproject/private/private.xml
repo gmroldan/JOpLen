@@ -4,12 +4,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/martin/NetBeansProjects/JOpLen/nbproject/project.properties</file>
-            <file>file:/home/martin/NetBeansProjects/JOpLen/nbproject/genfiles.properties</file>
-            <file>file:/home/martin/NetBeansProjects/JOpLen/src/joplen/controller/JOpLenController.java</file>
-            <file>file:/home/martin/NetBeansProjects/JOpLen/src/joplen/model/Alphabet.java</file>
-            <file>file:/home/martin/NetBeansProjects/JOpLen/src/joplen/model/JOpLenCore.java</file>
-            <file>file:/home/martin/NetBeansProjects/JOpLen/src/joplen/utils/FileManager.java</file>
+            <file>file:/home/gerardo/NetBeansProjects/JOpLen/src/vista/gui/dialogs/NewAlphabetDialog.java</file>
+            <file>file:/home/gerardo/NetBeansProjects/JOpLen/src/vista/gui/MainWindow.java</file>
         </group>
     </open-files>
 </project-private>
