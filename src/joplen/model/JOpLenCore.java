@@ -4,7 +4,6 @@
  */
 package joplen.model;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -159,7 +158,7 @@ public class JOpLenCore {
        return result;
     }
     
-    public Language potenciacion(final Language language, final int exponent) {
+    public Language exponentiaton(final Language language, final int exponent) {
         Language result = new Language();
         
         if (exponent == 0) {
@@ -205,7 +204,7 @@ public class JOpLenCore {
         }
         
         for (int i = 1; i <= exponent; i++) {
-            for (String word: union(result, potenciacion(language, i)).getWordList()) {
+            for (String word: union(result, exponentiaton(language, i)).getWordList()) {
                 aux.addWord(word);                
             }
             result.getWordList().clear();

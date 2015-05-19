@@ -1,15 +1,21 @@
 package joplen.controller;
 
-import java.io.IOException;
 import joplen.exceptions.JOpLenException;
 import joplen.model.Alphabet;
 import joplen.model.JOpLenCore;
+import joplen.model.Language;
+import joplen.model.OperationType;
 
 public class JOpLenController {
+    private static final JOpLenController INSTANCE = new JOpLenController();
     private final JOpLenCore jOpLenCore;
     
-    public JOpLenController() {
+    private JOpLenController() {
         this.jOpLenCore = JOpLenCore.getInstance();
+    }
+    
+    public static JOpLenController getInstance() {
+        return INSTANCE;
     }
     
     public void newAlphabet(String[] symbols) throws JOpLenException {
@@ -20,51 +26,95 @@ public class JOpLenController {
         jOpLenCore.newLanguage(words);
     }
     
-    public String resolve(String language1, String language2, String exponent ,int operation) {
-        String result = "";
+    public String resolve(String language1String, String language2String, String exponentString, OperationType operationType) {
+        StringBuilder stringBuilder = new StringBuilder();
+        Language language1 = jOpLenCore.findLanguage(language1String);
+        Language language2 = null;
+        int exponent = 0;
         
-        switch (operation) {
-            case 0:
-                result = language1 + " ∪ " + language2 + " = " + jOpLenCore.union(jOpLenCore.findLanguage(language1), jOpLenCore.findLanguage(language2)).getWordList().toString();
+        if (language2String != null) {
+            language2 = jOpLenCore.findLanguage(language2String);
+        }
+        
+        if (exponentString != null) {
+            exponent = Integer.parseInt(exponentString);
+        }
+        
+        switch (operationType) {
+            case UNION:
+                stringBuilder.append(language1String)
+                        .append(" ∪ ")
+                        .append(language2String)
+                        .append(" = ")
+                        .append(jOpLenCore.union(language1, language2).getWordList().toString());
                 break;
-            case 1:
-                result = language1 + " - " + language2 + " = " + jOpLenCore.difference(jOpLenCore.findLanguage(language1), jOpLenCore.findLanguage(language2)).getWordList().toString();
+            case DIFERENCE:
+                stringBuilder.append(language1String)
+                        .append(" - ")
+                        .append(language2String)
+                        .append(" = ")
+                        .append(jOpLenCore.difference(language1, language2).getWordList().toString());
                 break;
-            case 2:
-                result = language1 + " ∩ " + language2 + " =" + jOpLenCore.intersection(jOpLenCore.findLanguage(language1), jOpLenCore.findLanguage(language2)).getWordList().toString();
+            case INTERSECTION:
+                stringBuilder.append(language1String)
+                        .append(" ∩ ")
+                        .append(language2String)
+                        .append(" = ")
+                        .append(jOpLenCore.intersection(language1, language2).getWordList().toString());
                 break;                
-            case 3:
-                result = "∼" + language1 + " = " + jOpLenCore.complement(jOpLenCore.findLanguage(language1));
+            case COMPLEMENT:
+                stringBuilder.append("∼")
+                        .append(language1String)
+                        .append(" = ")
+                        .append(jOpLenCore.complement(language1));
                 break;
-            case 4:
-                result = language1 + " . " + language2 + " = " + jOpLenCore.product(jOpLenCore.findLanguage(language1), jOpLenCore.findLanguage(language2)).getWordList().toString();
+            case PRODUCT:
+                stringBuilder.append(language1String)
+                        .append(" . ")
+                        .append(language2String)
+                        .append(" = ")
+                        .append(jOpLenCore.product(language1, language2).getWordList().toString());
                 break;
-            case 5:
-                if (Integer.parseInt(exponent) >= 0) {
-                    result = language1 + " a la " + exponent + " = " + jOpLenCore.potenciacion(jOpLenCore.findLanguage(language1), Integer.parseInt(exponent)).getWordList().toString();
+            case EXPONENTIATION:                
+                if (exponent >= 0) {
+                    stringBuilder.append(language1String)
+                        .append(" a la ")
+                        .append(exponent)
+                        .append(" = ")
+                        .append(jOpLenCore.exponentiaton(language1, exponent).getWordList().toString());
                 } else {
-                    result = "ERROR: Esta opereción solo acepta potencias mayores o iguales a 0(cero)";
+                    stringBuilder.append("ERROR: Esta operación solo acepta potencias mayores o iguales a 0(cero)");
                 }
                 break;
-            case 6:
-                if (Integer.parseInt(exponent) >= 0) {
-                    result = language1 + " Estrella de Kleene en potencia " + Integer.parseInt(exponent) + " = " + jOpLenCore.kleeneStar(jOpLenCore.findLanguage(language1), Integer.parseInt(exponent)).getWordList().toString();
+            case KLEENE_STAR:
+                if (exponent >= 0) {
+                    stringBuilder.append(language1String)
+                        .append(" Estrella de Kleene en potencia ")
+                        .append(exponent)
+                        .append(" = ")
+                        .append(jOpLenCore.kleeneStar(language1, exponent).getWordList().toString());                    
                 } else {
-                    result = "ERROR: Esta opereción solo acepta potencias mayores o iguales a 0(cero)";
+                    stringBuilder.append("ERROR: Esta opereción solo acepta potencias mayores o iguales a 0(cero)");
                 }
                 break;
-            case 7:
-                if (Integer.parseInt(exponent) >= 1) {
-                    result = language1 + " Estrella Positiva en potencia " + Integer.parseInt(exponent) + " = " + jOpLenCore.positiveStar(jOpLenCore.findLanguage(language1), Integer.parseInt(exponent)).getWordList().toString();
+            case POSITIVE_STAR:
+                if (exponent >= 1) {
+                    stringBuilder.append(language1String)
+                        .append(" Estrella Positiva en potencia ")
+                        .append(exponent)
+                        .append(" = ")
+                        .append(jOpLenCore.positiveStar(language1, exponent).getWordList().toString());                    
                 } else {
-                    result = "ERROR: Esta opereción solo acepta potencias mayores o iguales a 1(uno)";
+                    stringBuilder.append("ERROR: Esta opereción solo acepta potencias mayores o iguales a 1(uno)");
                 }
                 break;
-            case 8:
-                result = language1 + " inversa = " + jOpLenCore.reverse(jOpLenCore.findLanguage(language1)).getWordList().toString();
+            case REVERSE:
+                stringBuilder.append(language1String)
+                        .append(" inversa = ")
+                        .append(jOpLenCore.reverse(language1).getWordList().toString());
                 break;
         }
-        return result;
+        return stringBuilder.toString();
     }
     
     public void saveProject() throws JOpLenException {

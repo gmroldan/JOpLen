@@ -4,8 +4,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/gerardo/NetBeansProjects/JOpLen/src/vista/gui/dialogs/NewAlphabetDialog.java</file>
-            <file>file:/home/gerardo/NetBeansProjects/JOpLen/src/vista/gui/MainWindow.java</file>
+            <file>file:/home/gerardo/NetBeansProjects/JOpLen/src/joplen/model/OperationType.java</file>
+            <file>file:/home/gerardo/NetBeansProjects/JOpLen/src/joplen/model/JOpLenCore.java</file>
+            <file>file:/home/gerardo/NetBeansProjects/JOpLen/src/joplen/controller/JOpLenController.java</file>
+            <file>file:/home/gerardo/NetBeansProjects/JOpLen/src/joplen/gui/MainWindow.java</file>
         </group>
     </open-files>
 </project-private>

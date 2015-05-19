@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import joplen.model.Language;
+import joplen.model.OperationType;
 import joplen.controller.JOpLenController;
 import joplen.exceptions.JOpLenException;
 import joplen.gui.dialogs.NewAlphabetDialog;
@@ -19,8 +20,8 @@ public class MainWindow extends javax.swing.JFrame {
     private final JOpLenController controller;
     
     public MainWindow() {
-        controller = new JOpLenController();
-        initComponents();      
+        this.controller = JOpLenController.getInstance();
+        initComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -36,11 +37,11 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaLanguage1 = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
-        boxLangauge2 = new javax.swing.JComboBox();
+        boxLanguage2 = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaLanguage2 = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
-        boxOperations = new javax.swing.JComboBox();
+        boxOperations = new javax.swing.JComboBox(OperationType.values());
         btnResolve = new javax.swing.JButton();
         textExponent = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
@@ -122,9 +123,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        boxLangauge2.addActionListener(new java.awt.event.ActionListener() {
+        boxLanguage2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxLangauge2ActionPerformed(evt);
+                boxLanguage2ActionPerformed(evt);
             }
         });
 
@@ -139,7 +140,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(boxLangauge2, 0, 249, Short.MAX_VALUE)
+                    .addComponent(boxLanguage2, 0, 249, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -147,7 +148,7 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(boxLangauge2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boxLanguage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2)
                 .addContainerGap())
@@ -156,7 +157,6 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
 
         boxOperations.setMaximumRowCount(9);
-        boxOperations.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Unión", "Diferencia", "Intersección", "Complemento", "Producto", "Potenciación", "Estrella de Kleene", "Estrella Positiva", "Inversa" }));
         boxOperations.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxOperationsActionPerformed(evt);
@@ -384,8 +384,7 @@ public class MainWindow extends javax.swing.JFrame {
             if (dialog.isStatus()) {
                 try {
                     controller.newLanguage(dialog.getWords());
-                    updateComboBoxsLanguages(boxLanguage1);
-                    updateComboBoxsLanguages(boxLangauge2);
+                    updateComboBoxsLanguages();
                 } catch (JOpLenException ex) {
                     showErrorMessage(ex.getMessage());
                 }
@@ -399,34 +398,54 @@ public class MainWindow extends javax.swing.JFrame {
         showLanguage(boxLanguage1, txtAreaLanguage1);
     }//GEN-LAST:event_boxLanguage1ActionPerformed
 
-    private void boxLangauge2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLangauge2ActionPerformed
-        showLanguage(boxLangauge2, txtAreaLanguage2);
-    }//GEN-LAST:event_boxLangauge2ActionPerformed
+    private void boxLanguage2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLanguage2ActionPerformed
+        showLanguage(boxLanguage2, txtAreaLanguage2);
+    }//GEN-LAST:event_boxLanguage2ActionPerformed
 
     private void btnResolveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResolveActionPerformed
         try{
-            String language1 = boxLanguage1.getSelectedItem().toString();
-            String language2 = boxLangauge2.getSelectedItem().toString();            
-            String exponent = textExponent.getText();
+            String language1 = boxLanguage1.getSelectedItem().toString();            
+            String language2 = null;
+            String exponent = null;
+            
+            if (boxLanguage2.isEnabled()) {
+                language2 = boxLanguage2.getSelectedItem().toString();
+            }
+            
+            if (textExponent.isEnabled()) {
+                exponent = textExponent.getText();
+            }
+            
             txtResult.setText(controller.resolve(language1, language2, exponent, getOperation()));
         } catch(Exception ex) {
-            showErrorMessage("No se puedo realizar ninguna operación");
+            showErrorMessage("No se pudo realizar ninguna operación");
         }        
     }//GEN-LAST:event_btnResolveActionPerformed
 
     private void boxOperationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxOperationsActionPerformed
-        String operation = boxOperations.getSelectedItem().toString();
+        OperationType operationType = this.getOperation();
         
-        if ("Complemento".equals(operation) || "Potenciación".equals(operation) || "Estrella de Kleene".equals(operation) || "Inversa".equals(operation) || "Estrella Positiva".equals(operation)) {
-            boxLangauge2.setEnabled(false);
+        if (OperationType.COMPLEMENT.equals(operationType)
+                || OperationType.EXPONENTIATION.equals(operationType)
+                || OperationType.KLEENE_STAR.equals(operationType)
+                || OperationType.REVERSE.equals(operationType)
+                || OperationType.POSITIVE_STAR.equals(operationType)) {
+            
+            boxLanguage2.setEnabled(false);
             txtAreaLanguage2.setEnabled(false);
-            if ("Potenciación".equals(operation) || "Estrella de Kleene".equals(operation) || "Estrella Positiva".equals(operation)) {
+            
+            if (OperationType.EXPONENTIATION.equals(operationType)
+                    || OperationType.KLEENE_STAR.equals(operationType)
+                    || OperationType.POSITIVE_STAR.equals(operationType)) {
+                
                 textExponent.setEnabled(true);
+                
             } else {
                 textExponent.setEnabled(false);
             }
+            
         } else {
-            boxLangauge2.setEnabled(true);
+            boxLanguage2.setEnabled(true);
             txtAreaLanguage2.setEnabled(true);
             textExponent.setEnabled(false);
         }            
@@ -445,23 +464,23 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             controller.openProject();
             labelAlphabet.setText(controller.getAlphabet().toString());
-            updateComboBoxsLanguages(boxLanguage1);
-            updateComboBoxsLanguages(boxLangauge2);
+            updateComboBoxsLanguages();
         } catch (JOpLenException ex) {
             showErrorMessage(ex.getMessage());
         }        
     }//GEN-LAST:event_optionOpenActionPerformed
 
-    private void updateComboBoxsLanguages(JComboBox comboBox) {
+    private void updateComboBoxsLanguages() {
         Object[] languages = controller.getLanguages();
         String[] items = new String[languages.length];
         int i = 0;
         for(Object object: languages){
             items[i] = ((Language) object).getName();
             i++;            
-        }                
+        }
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(items);
-        comboBox.setModel(modelo);        
+        boxLanguage1.setModel(new DefaultComboBoxModel(items));        
+        boxLanguage2.setModel(new DefaultComboBoxModel(items));
     }
     
     private void showLanguage(JComboBox comboBox, JTextArea textArea) {        
@@ -477,8 +496,8 @@ public class MainWindow extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
     
-    private int getOperation(){        
-        return boxOperations.getSelectedIndex();
+    private OperationType getOperation(){        
+        return (OperationType) boxOperations.getSelectedItem();
     }
     
     public static void main(String args[]) {
@@ -512,8 +531,8 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox boxLangauge2;
     private javax.swing.JComboBox boxLanguage1;
+    private javax.swing.JComboBox boxLanguage2;
     private javax.swing.JComboBox boxOperations;
     private javax.swing.JButton btnResolve;
     private javax.swing.JLabel jLabel1;
