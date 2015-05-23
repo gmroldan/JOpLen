@@ -1,5 +1,6 @@
 package joplen.controller;
 
+import java.io.File;
 import joplen.exceptions.JOpLenException;
 import joplen.model.Alphabet;
 import joplen.model.JOpLenCore;
@@ -117,12 +118,12 @@ public class JOpLenController {
         return stringBuilder.toString();
     }
     
-    public void saveProject() throws JOpLenException {
-        jOpLenCore.save();
+    public void saveProject(File file) throws JOpLenException {
+        jOpLenCore.save(file);
     }
     
-    public void openProject() throws JOpLenException {
-        jOpLenCore.open();
+    public void openProject(File file) throws JOpLenException {
+        jOpLenCore.open(file);
     }
     
     public Alphabet getAlphabet() {

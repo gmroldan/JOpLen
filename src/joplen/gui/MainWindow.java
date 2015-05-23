@@ -4,8 +4,10 @@
  */
 package joplen.gui;
 
+import java.io.File;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import joplen.model.Language;
@@ -453,8 +455,16 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void optionSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionSaveActionPerformed
         try {
-            controller.saveProject();
-            JOptionPane.showMessageDialog(this, "El proyecto se guardó con éxito", null, JOptionPane.INFORMATION_MESSAGE);
+            final JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+            int returnVal = fileChooser.showSaveDialog(this);
+
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                this.controller.saveProject(selectedFile);
+                JOptionPane.showMessageDialog(this, "El proyecto se guardó con éxito", null, JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (JOpLenException ex) {
             showErrorMessage(ex.getMessage());
         }
@@ -462,9 +472,17 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void optionOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionOpenActionPerformed
         try {
-            controller.openProject();
-            labelAlphabet.setText(controller.getAlphabet().toString());
-            updateComboBoxsLanguages();
+            final JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+            int returnVal = fileChooser.showOpenDialog(this);
+
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                this.controller.openProject(selectedFile);
+                this.labelAlphabet.setText(controller.getAlphabet().toString());
+                this.updateComboBoxsLanguages();
+            }            
         } catch (JOpLenException ex) {
             showErrorMessage(ex.getMessage());
         }        
@@ -478,7 +496,6 @@ public class MainWindow extends javax.swing.JFrame {
             items[i] = ((Language) object).getName();
             i++;            
         }
-        DefaultComboBoxModel modelo = new DefaultComboBoxModel(items);
         boxLanguage1.setModel(new DefaultComboBoxModel(items));        
         boxLanguage2.setModel(new DefaultComboBoxModel(items));
     }

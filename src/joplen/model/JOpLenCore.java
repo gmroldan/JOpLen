@@ -4,6 +4,7 @@
  */
 package joplen.model;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -237,11 +238,12 @@ public class JOpLenCore {
     /**
      * Opens a text file and load the information in the application.
      * 
+     * @param file
      * @throws JOpLenException
      */
-    public void open() throws JOpLenException {
+    public void open(File file) throws JOpLenException {
         try {
-            FileManager.getInstance().openFile();
+            FileManager.getInstance().openFile(file);
         } catch (IOException ex) {
             throw new JOpLenException("There was an error opening the project.", ex);
         }
@@ -250,11 +252,12 @@ public class JOpLenCore {
     /**
      * Saves the current application status into a text file.
      * 
+     * @param file
      * @throws JOpLenException 
      */
-    public void save() throws JOpLenException {
+    public void save(File file) throws JOpLenException {
         try {
-            FileManager.getInstance().save();
+            FileManager.getInstance().save(file);
         } catch (IOException ex) {
             throw new JOpLenException("There was an error during the saving process.", ex);
         }
@@ -267,6 +270,13 @@ public class JOpLenCore {
      */
     public void addLanguage(final Language language) {
         languagesMap.put(language.getName(), language);
+    }
+    
+    /**
+     * Clears the languages map.
+     */
+    public void clearLanguages() {
+        this.languagesMap.clear();
     }
     
     public Alphabet getAlphabet() {
@@ -285,5 +295,5 @@ public class JOpLenCore {
         }
         
         return list;
-    }
+    }    
 }

@@ -16,7 +16,8 @@ import joplen.model.Language;
 
 public class FileManager {
     private static FileManager INSTANCE = null;
-    private final String FILE_NAME_DEFAULT = "archivo.txt";
+    private static final String SEPARATOR = ",";
+    private static final String NEXT_LINE = "\n";
     
     public static FileManager getInstance() {
         if (INSTANCE == null) {
@@ -25,15 +26,26 @@ public class FileManager {
         return INSTANCE;
     }
     
-    public void openFile() throws FileNotFoundException, IOException {
-        BufferedReader br = new BufferedReader(new FileReader(FILE_NAME_DEFAULT));
-        String line;
-        boolean condition = true;
+    /**
+     * Opens a given file and sets up the alphabet and the languages to work with.
+     * 
+     * @param file File to be loaded.
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
+    public void openFile(File file) throws FileNotFoundException, IOException {
+        if (file == null) {
+            throw new FileNotFoundException("File not found.");
+        }
         
-        while ((line = br.readLine()) != null) {
-            NameFactory.getInstance().resetCounter();
-            
-            if (condition) {
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        StringBuilder wordAux = new StringBuilder();
+        String line;
+        boolean firstLine = true;
+        NameFactory.getInstance().resetCounter();
+        
+        while ((line = br.readLine()) != null) {            
+            if (firstLine) {
                 Alphabet alphabetAux = new Alphabet();
                 
                 for (int i = 0; i < line.length(); i++) {
@@ -41,17 +53,17 @@ public class FileManager {
                 }
                 
                 JOpLenCore.getInstance().setAlphabet(alphabetAux);
-                condition = false;
-            } else {
-                String wordAux = "";
+                JOpLenCore.getInstance().clearLanguages();
+                firstLine = false;
+            } else {                
                 Language languageAux = new Language();
                 
                 for (int i = 0; i < line.length(); i++) {
-                    if (!",".equals(String.valueOf(line.charAt(i)))) {
-                        wordAux = wordAux + "" + String.valueOf(line.charAt(i));                    
+                    if (!SEPARATOR.equals(String.valueOf(line.charAt(i)))) {
+                        wordAux.append(String.valueOf(line.charAt(i)));
                     } else {
-                        languageAux.addWord(wordAux);                        
-                        wordAux = "";
+                        languageAux.addWord(wordAux.toString());
+                        wordAux.setLength(0);
                     }
                 }        
                 languageAux.setName(NameFactory.getInstance().getLanguageName());
@@ -61,17 +73,27 @@ public class FileManager {
         br.close();
     }
     
-    public void save() throws IOException {
-        FileWriter fw = new FileWriter(new File("archivo.txt"));
+    /**
+     * Saves the application current data into a text file.
+     * 
+     * @param file File to be saved.
+     * @throws IOException 
+     */
+    public void save(File file) throws IOException {
+        if (file == null) {
+            throw new FileNotFoundException("File not found.");
+        }
+        
+        FileWriter fw = new FileWriter(file);
         
         for (String symbol: JOpLenCore.getInstance().getAlphabet().getSymbols()) {
             fw.write(symbol);
         }        
         
         for (Language language: JOpLenCore.getInstance().getLanguages()) {
-            fw.write("\n");
+            fw.write(NEXT_LINE);
             for (String word: language.getWordList()) {
-                fw.write(word + ",");
+                fw.write(word + SEPARATOR);
             }            
         }
         fw.close();
